@@ -1,0 +1,87 @@
+@layer base {
+  html[data-theme="default"] {
+    --primary-100: theme(colors.violet.50);
+    --primary-90: theme(colors.violet.100);
+    --primary-80: theme(colors.violet.200);
+    --primary-70: theme(colors.violet.300);
+    --primary-60: theme(colors.violet.400);
+    --primary-50: theme(colors.violet.500);
+    --primary-40: theme(colors.violet.600);
+    --primary-30: theme(colors.violet.700);
+    --primary-20: theme(colors.violet.800);
+    --primary-10: theme(colors.violet.900);
+    --primary-0: theme(colors.violet.950);
+
+    --secondary-100: theme(colors.gray.50);
+    --secondary-98: theme(colors.gray.100);
+    --secondary-95: theme(colors.gray.100);
+    --secondary-90: theme(colors.gray.200);
+    --secondary-80: theme(colors.gray.300);
+    --secondary-70: theme(colors.gray.400);
+    --secondary-60: theme(colors.gray.500);
+    --secondary-50: theme(colors.gray.600);
+    --secondary-40: theme(colors.gray.700);
+    --secondary-30: theme(colors.gray.800);
+    --secondary-20: theme(colors.gray.900);
+    --secondary-10: theme(colors.gray.950);
+    --secondary-0: black;
+
+    --tertiary-100: theme(colors.amber.50);
+    --tertiary-98: theme(colors.amber.100);
+    --tertiary-95: theme(colors.amber.100);
+    --tertiary-90: theme(colors.amber.200);
+    --tertiary-80: theme(colors.amber.300);
+    --tertiary-70: theme(colors.amber.400);
+    --tertiary-60: theme(colors.amber.500);
+    --tertiary-50: theme(colors.amber.600);
+    --tertiary-40: theme(colors.amber.700);
+    --tertiary-30: theme(colors.amber.800);
+    --tertiary-20: theme(colors.amber.900);
+    --tertiary-10: theme(colors.amber.950);
+    --tertiary-0: black;
+
+    --error-100: theme(colors.red.50);
+    --error-98: theme(colors.red.100);
+    --error-95: theme(colors.red.100);
+    --error-90: theme(colors.red.200);
+    --error-80: theme(colors.red.300);
+    --error-70: theme(colors.red.400);
+    --error-60: theme(colors.red.500);
+    --error-50: theme(colors.red.600);
+    --error-40: theme(colors.red.700);
+    --error-30: theme(colors.red.800);
+    --error-20: theme(colors.red.900);
+    --error-10: theme(colors.red.950);
+    --error-0: black;
+
+    /* === Neutral === */
+    --neutral-100: theme(colors.zinc.50);
+    --neutral-98: theme(colors.zinc.100);
+    --neutral-95: theme(colors.zinc.100);
+    --neutral-90: theme(colors.zinc.200);
+    --neutral-80: theme(colors.zinc.300);
+    --neutral-70: theme(colors.zinc.400);
+    --neutral-60: theme(colors.zinc.500);
+    --neutral-50: theme(colors.zinc.600);
+    --neutral-40: theme(colors.zinc.700);
+    --neutral-30: theme(colors.zinc.800);
+    --neutral-20: theme(colors.zinc.900);
+    --neutral-10: theme(colors.zinc.950);
+    --neutral-0: black;
+
+    /* === Neutral Variant === */
+    --neutral-variant-100: theme(colors.stone.50);
+    --neutral-variant-98: theme(colors.stone.100);
+    --neutral-variant-95: theme(colors.stone.100);
+    --neutral-variant-90: theme(colors.stone.200);
+    --neutral-variant-80: theme(colors.stone.300);
+    --neutral-variant-70: theme(colors.stone.400);
+    --neutral-variant-60: theme(colors.stone.500);
+    --neutral-variant-50: theme(colors.stone.600);
+    --neutral-variant-40: theme(colors.stone.700);
+    --neutral-variant-30: theme(colors.stone.800);
+    --neutral-variant-20: theme(colors.stone.900);
+    --neutral-variant-10: theme(colors.stone.950);
+    --neutral-variant-0: black;
+  }
+}

@@ -1,0 +1,324 @@
+@import "tailwindcss";
+@import "./themes/default-theme.css";
+
+@property --border-angle {
+  inherits: false;
+  initial-value: 0deg;
+  syntax: "<angle>";
+}
+
+html[data-mode="light"] {
+  /* === Primary === */
+  --primary: var(--primary-40);
+  --on-primary: var(--primary-100);
+  --primary-container: var(--primary-90);
+  --on-primary-container: var(--primary-10);
+
+  --primary-fixed: var(--primary-90);
+  --on-primary-fixed: var(--primary-10);
+  --primary-fixed-dim: var(--primary-80);
+  --on-primary-fixed-variant: var(--primary-30);
+
+  /* === Secondary === */
+  --secondary: var(--secondary-40);
+  --on-secondary: var(--secondary-100);
+  --secondary-container: var(--secondary-90);
+  --on-secondary-container: var(--secondary-10);
+
+  --secondary-fixed: var(--secondary-90);
+  --on-secondary-fixed: var(--secondary-10);
+  --secondary-fixed-dim: var(--secondary-80);
+  --on-secondary-fixed-variant: var(--secondary-30);
+
+  /* === Tertiary === */
+  --tertiary: var(--tertiary-40);
+  --on-tertiary: var(--tertiary-100);
+  --tertiary-container: var(--tertiary-90);
+  --on-tertiary-container: var(--tertiary-10);
+
+  --tertiary-fixed: var(--tertiary-90);
+  --on-tertiary-fixed: var(--tertiary-10);
+  --tertiary-fixed-dim: var(--tertiary-80);
+  --on-tertiary-fixed-variant: var(--tertiary-30);
+
+  /* === Error === */
+  --error: var(--error-40);
+  --on-error: var(--error-100);
+  --error-container: var(--error-90);
+  --on-error-container: var(--error-10);
+
+  /* === Surface / Background === */
+  --surface-dim: var(--neutral-80);
+  --surface: var(--neutral-100);
+  --surface-bright: var(--neutral-100);
+
+  --surface-container-lowest: var(--neutral-100);
+  --surface-container-low: var(--neutral-100);
+  --surface-container: var(--neutral-100);
+  --surface-container-high: var(--neutral-90);
+  --surface-container-highest: var(--neutral-90);
+
+  /* === Inverse === */
+  --inverse-surface: var(--neutral-20);
+  --inverse-on-surface: var(--neutral-100);
+  --inverse-primary: var(--primary-80);
+
+  /* === On Surface / Outline === */
+  --on-surface: var(--neutral-10);
+  --on-surface-variant: var(--neutral-variant-30);
+  --outline: var(--neutral-variant-50);
+  --outline-variant: var(--neutral-variant-80);
+
+  /* === Scrim & Shadow === */
+  --scrim: var(--neutral-0);
+  --shadow: var(--neutral-0);
+
+  /* === Custom (examples) === */
+  --custom: var(--custom-40);
+  --on-custom: var(--custom-100);
+  --custom-container: var(--custom-90);
+  --on-custom-container: var(--custom-10);
+}
+
+html[data-mode="dark"] {
+  /* === Primary === */
+  --primary: var(--primary-70);
+  --on-primary: var(--primary-20);
+  --primary-container: var(--primary-30);
+  --on-primary-container: var(--primary-90);
+
+  --primary-fixed: var(--primary-90);
+  --on-primary-fixed: var(--primary-10);
+  --primary-fixed-dim: var(--primary-70);
+  --on-primary-fixed-variant: var(--primary-30);
+
+  /* === Secondary === */
+  --secondary: var(--secondary-70);
+  --on-secondary: var(--secondary-20);
+  --secondary-container: var(--secondary-30);
+  --on-secondary-container: var(--secondary-90);
+
+  --secondary-fixed: var(--secondary-90);
+  --on-secondary-fixed: var(--secondary-10);
+  --secondary-fixed-dim: var(--secondary-70);
+  --on-secondary-fixed-variant: var(--secondary-30);
+
+  /* === Tertiary === */
+  --tertiary: var(--tertiary-70);
+  --on-tertiary: var(--tertiary-20);
+  --tertiary-container: var(--tertiary-30);
+  --on-tertiary-container: var(--tertiary-90);
+
+  --tertiary-fixed: var(--tertiary-90);
+  --on-tertiary-fixed: var(--tertiary-10);
+  --tertiary-fixed-dim: var(--tertiary-70);
+  --on-tertiary-fixed-variant: var(--tertiary-30);
+
+  /* === Error === */
+  --error: var(--error-70);
+  --on-error: var(--error-20);
+  --error-container: var(--error-30);
+  --on-error-container: var(--error-90);
+
+  /* === Surface / Background === */
+  --surface-dim: var(--neutral-10);
+  --surface: var(--neutral-10);
+  --surface-bright: var(--neutral-30);
+
+  --surface-container-lowest: var(--neutral-10);
+  --surface-container-low: var(--neutral-10);
+  --surface-container: var(--neutral-10);
+  --surface-container-high: var(--neutral-20);
+  --surface-container-highest: var(--neutral-30);
+
+  /* === Inverse === */
+  --inverse-surface: var(--neutral-90);
+  --inverse-on-surface: var(--neutral-20);
+  --inverse-primary: var(--primary-40);
+
+  /* === On Surface / Outline === */
+  --on-surface: var(--neutral-90);
+  --on-surface-variant: var(--neutral-variant-70);
+  --outline: var(--neutral-variant-60);
+  --outline-variant: var(--neutral-variant-30);
+
+  /* === Scrim & Shadow === */
+  --scrim: var(--neutral-0);
+  --shadow: var(--neutral-0);
+
+  /* === Custom (examples) === */
+  --custom: var(--custom-70);
+  --on-custom: var(--custom-20);
+  --custom-container: var(--custom-30);
+  --on-custom-container: var(--custom-90);
+}
+
+@theme {
+  --shadow-shape:
+    0px 8px 8px rgba(0, 0, 0, 0.1), 0px 4px 4px rgba(0, 0, 0, 0.1),
+    0px 2px 2px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(0, 0, 0, 0.1),
+    inset 0px 0px 0px 1px rgba(255, 255, 255, 0.03),
+    inset 0px 1px 0px rgba(255, 255, 255, 0.03);
+  --shadow-shape-content:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.25),
+    inset 0px 1px 0px rgba(255, 255, 255, 0.02),
+    inset 0px 0px 0px 1px rgba(255, 255, 255, 0.02);
+  --text-xxs: 0.625rem;
+  --animate-border: border 2s linear infinite;
+
+  @keyframes border {
+    0% {
+      --border-angle: 0deg;
+    }
+    100% {
+      --border-angle: 360deg;
+    }
+  }
+}
+
+@layer components {
+  :root {
+    @apply m-0 box-border transition-colors duration-150 ease-in-out;
+    background-color: var(--surface);
+    color: var(--on-surface);
+  }
+
+  .page {
+    @apply flex h-auto w-screen flex-1 flex-col items-start justify-start;
+  }
+
+  /* === Primary === */
+  .primary {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--primary);
+    color: var(--on-primary);
+  }
+
+  .primary-container {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+  }
+
+  .primary-fixed {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--primary-fixed);
+    color: var(--on-primary-fixed);
+  }
+
+  .primary-fixed-dim {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--primary-fixed-dim);
+    color: var(--on-primary-fixed);
+  }
+
+  .primary-fixed-variant {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--on-primary-fixed-variant);
+    color: var(--on-primary-fixed);
+  }
+
+  /* === Secondary === */
+  .secondary {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--secondary);
+    color: var(--on-secondary);
+  }
+
+  .secondary-container {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+  }
+
+  .secondary-fixed {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--secondary-fixed);
+    color: var(--on-secondary-fixed);
+  }
+
+  .secondary-fixed-dim {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--secondary-fixed-dim);
+    color: var(--on-secondary-fixed);
+  }
+
+  .secondary-fixed-variant {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--on-secondary-fixed-variant);
+    color: var(--on-secondary-fixed);
+  }
+
+  /* === Tertiary === */
+  .tertiary {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--tertiary);
+    color: var(--on-tertiary);
+  }
+
+  .tertiary-container {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--tertiary-container);
+    color: var(--on-tertiary-container);
+  }
+
+  .tertiary-fixed {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--tertiary-fixed);
+    color: var(--on-tertiary-fixed);
+  }
+
+  .tertiary-fixed-dim {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--tertiary-fixed-dim);
+    color: var(--on-tertiary-fixed);
+  }
+
+  .tertiary-fixed-variant {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--on-tertiary-fixed-variant);
+    color: var(--on-tertiary-fixed);
+  }
+
+  /* === Error === */
+  .error {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--error);
+    color: var(--on-error);
+  }
+
+  .error-container {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--error-container);
+    color: var(--on-error-container);
+  }
+
+  .error-fixed {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--error-container);
+    color: var(--on-error-container);
+  }
+
+  .error-fixed-dim {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--error);
+    color: var(--on-error-container);
+  }
+
+  .border-active {
+    @apply animate-border border border-transparent;
+    color: var(--on-primary);
+    background:
+      linear-gradient(45deg, var(--primary), var(--primary) 50%, var(--primary))
+        padding-box,
+      conic-gradient(
+          from var(--border-angle),
+          var(--border-start, var(--secondary-40)) 80%,
+          var(--border-middle, var(--primary-40)) 86%,
+          var(--border-glow, var(--tertiary-40)) 90%,
+          var(--border-middle, var(--primary-40)) 94%,
+          var(--border-end, var(--secondary-40)) 100%
+        )
+        border-box;
+  }
+}
