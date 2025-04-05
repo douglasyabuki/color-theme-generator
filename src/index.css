@@ -153,6 +153,23 @@ html[data-mode="dark"] {
   --on-custom-container: var(--custom-90);
 }
 
+@layer base {
+  :root {
+    @apply m-0 box-border overflow-x-hidden transition-colors duration-150 ease-in-out;
+    background-color: var(--surface);
+    color: var(--on-surface);
+  }
+
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  input[type="color"]::-webkit-color-swatch {
+    border: none;
+    background-color: var(--surface);
+  }
+}
+
 @theme {
   --shadow-shape:
     0px 8px 8px rgba(0, 0, 0, 0.1), 0px 4px 4px rgba(0, 0, 0, 0.1),
@@ -177,12 +194,6 @@ html[data-mode="dark"] {
 }
 
 @layer components {
-  :root {
-    @apply m-0 box-border transition-colors duration-150 ease-in-out;
-    background-color: var(--surface);
-    color: var(--on-surface);
-  }
-
   .page {
     @apply flex h-auto w-screen flex-1 flex-col items-start justify-start;
   }
@@ -305,11 +316,76 @@ html[data-mode="dark"] {
     color: var(--on-error-container);
   }
 
+  .surface-dim {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--surface-dim);
+    color: var(--on-surface);
+  }
+
+  .surface {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--surface);
+    color: var(--on-surface);
+  }
+
+  .inverse-surface {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--inverse-surface);
+    color: var(--inverse-on-surface);
+  }
+
+  .surface-bright {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--surface-bright);
+    color: var(--on-surface);
+  }
+
+  .surface-container-lowest {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--surface-container-lowest);
+    color: var(--on-surface);
+  }
+
+  .surface-container-low {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--surface-container-low);
+    color: var(--on-surface);
+  }
+
+  .surface-container {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--surface-container);
+    color: var(--on-surface);
+  }
+
+  .surface-container-high {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--surface-container-high);
+    color: var(--on-surface);
+  }
+
+  .surface-container-highest {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--surface-container-highest);
+    color: var(--on-surface);
+  }
+
+  .inverse-primary {
+    @apply transition-colors duration-150 ease-in-out;
+    background-color: var(--inverse-primary);
+    color: var(--on-primary-container);
+  }
+
   .border-active {
     @apply animate-border border border-transparent;
     color: var(--on-primary);
     background:
-      linear-gradient(45deg, var(--primary), var(--primary) 50%, var(--primary))
+      linear-gradient(
+          45deg,
+          var(--secondary),
+          var(--secondary) 50%,
+          var(--secondary)
+        )
         padding-box,
       conic-gradient(
           from var(--border-angle),

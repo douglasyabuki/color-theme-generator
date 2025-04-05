@@ -9,10 +9,10 @@ const getInitialMode = (): ColorMode => {
   );
 };
 
-export const useColorMode = (): [ColorMode, () => void] => {
+export const useDarkMode = (): [ColorMode, () => void] => {
   const [mode, setMode] = useState<ColorMode>(getInitialMode);
 
-  const toggleColorMode = () => {
+  const onDarkModeToggle = () => {
     const nextMode: ColorMode = mode === "light" ? "dark" : "light";
     document.documentElement.setAttribute("data-mode", nextMode);
     setMode(nextMode);
@@ -22,5 +22,5 @@ export const useColorMode = (): [ColorMode, () => void] => {
     document.documentElement.setAttribute("data-mode", mode);
   }, [mode]);
 
-  return [mode, toggleColorMode];
+  return [mode, onDarkModeToggle];
 };
