@@ -4,7 +4,10 @@ import { useSessionStorage } from "../../hooks/use-session-storage";
 import { useThemePicker } from "../../hooks/use-theme-picker";
 import { convertColor } from "../../libs/culori/convert-color";
 import { applyCssVars } from "../../utils/apply-css-vars";
-import { generateMaterialDesignOklchScales } from "../../utils/generate-material-design-oklch-scales";
+import {
+  generateMaterialDesignOklchScales,
+  OklchScales,
+} from "../../utils/generate-material-design-oklch-scales";
 import { parseOklchString } from "../../utils/parse-oklch-string";
 import { applySemanticTokens } from "../../utils/semantic-tokens";
 import { ColorPicker } from "../ui/color-picker/ColorPicker";
@@ -43,7 +46,10 @@ export const ThemePicker = () => {
                 key,
               );
               applyCssVars(oklchScales);
-              setStoredScales(oklchScales);
+              setStoredScales((prev: OklchScales) => ({
+                ...prev,
+                ...oklchScales,
+              }));
             }}
           />
         );
