@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
+import { ColorModes } from "../types/color-modes";
 
-type ColorMode = "light" | "dark";
-
-const getInitialMode = (): ColorMode => {
+const getInitialMode = (): ColorModes => {
   if (typeof window === "undefined") return "light";
   return (
-    (document.documentElement.getAttribute("data-mode") as ColorMode) || "light"
+    (document.documentElement.getAttribute("data-mode") as ColorModes) ||
+    "light"
   );
 };
 
-export const useDarkMode = (): [ColorMode, () => void] => {
-  const [mode, setMode] = useState<ColorMode>(getInitialMode);
+export const useDarkMode = (): [ColorModes, () => void] => {
+  const [mode, setMode] = useState<ColorModes>(getInitialMode);
 
   const onDarkModeToggle = () => {
-    const nextMode: ColorMode = mode === "light" ? "dark" : "light";
+    const nextMode: ColorModes = mode === "light" ? "dark" : "light";
     document.documentElement.setAttribute("data-mode", nextMode);
     setMode(nextMode);
   };

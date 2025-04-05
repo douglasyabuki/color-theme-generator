@@ -7,6 +7,8 @@
   syntax: "<angle>";
 }
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 html[data-mode="light"] {
   /* === Primary === */
   --primary: var(--primary-40);

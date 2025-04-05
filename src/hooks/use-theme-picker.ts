@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { convertToHex } from "../libs/culori/convert-to-hex";
+import { convertColor } from "../libs/culori/convert-color";
 import { useOnMount } from "./use-on-mount";
 
 export const useThemePicker = () => {
@@ -12,13 +12,15 @@ export const useThemePicker = () => {
   useOnMount(() => {
     const rootStyles = getComputedStyle(document.documentElement);
 
-    setThemeColors({
-      primary: convertToHex(rootStyles.getPropertyValue("--primary").trim()),
-      secondary: convertToHex(
-        rootStyles.getPropertyValue("--secondary").trim(),
-      ),
-      tertiary: convertToHex(rootStyles.getPropertyValue("--tertiary").trim()),
-    });
+    setThemeColors(
+      (prev) =>
+        Object.fromEntries(
+          Object.keys(prev).map((key) => [
+            key,
+            convertColor(rootStyles.getPropertyValue(`--${key}`).trim(), "hex"),
+          ]),
+        ) as typeof prev,
+    );
   });
 
   return {
@@ -27,8 +29,6 @@ export const useThemePicker = () => {
       color: string,
       type: "primary" | "secondary" | "tertiary",
     ) => {
-      const { style } = document.documentElement;
-      style.setProperty(`--${type}`, color);
       setThemeColors((prev) => ({ ...prev, [type]: color }));
     },
   };

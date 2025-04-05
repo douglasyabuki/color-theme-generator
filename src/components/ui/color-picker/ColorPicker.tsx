@@ -1,6 +1,5 @@
 import { twMerge } from "tailwind-merge";
 import { ComponentsSizes } from "../../../types/components-sizes";
-import { ComponentsVariants } from "../../../types/components-variants";
 import { Input } from "../input/Input";
 import { Label } from "../label/Label";
 
@@ -11,7 +10,6 @@ interface ColorPicker {
   color: string;
   onColorChange: (color: string) => void;
   size?: ComponentsSizes;
-  variant?: ComponentsVariants;
 }
 
 export const ColorPicker = ({
@@ -19,23 +17,21 @@ export const ColorPicker = ({
   label,
   size = "medium",
   color,
-  variant = "primary",
   className,
   onColorChange,
 }: ColorPicker) => {
   return (
     <div
       className={twMerge(
-        "flex flex-col items-start justify-start gap-2",
+        "secondary-fixed flex flex-col items-start justify-start gap-2 rounded-md px-4 py-3",
         className,
       )}
     >
       <Label
         htmlFor={id}
-        className="text-sm font-bold"
+        className="text-sm font-bold text-[var(--on-secondary-fixed)]"
         label={label}
         size={size}
-        variant={variant}
       />
       <Input
         id={id}
@@ -44,9 +40,8 @@ export const ColorPicker = ({
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           onColorChange(e.target.value)
         }
-        className="size-10 cursor-pointer appearance-none overflow-hidden rounded-full animate-border border-angle border-active border-2 bg-transparent p-0 outline-none"
+        className="animate-border border-angle border-active size-10 cursor-pointer appearance-none overflow-hidden rounded-full border-2 bg-transparent p-0 outline-none"
         customSize={size}
-        variant={variant}
       />
     </div>
   );
