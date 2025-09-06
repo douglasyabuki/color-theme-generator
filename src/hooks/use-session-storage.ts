@@ -3,7 +3,7 @@ import { useState } from "react";
 export const useSessionStorage = <T>(
   key: string,
   initialValue: T,
-): { storedValue: T; setValue: (value: T) => void } => {
+): { storedValue: T; updateStoredValue: (value: T) => void } => {
   const getStoredValue = (): T => {
     const storedValue = sessionStorage.getItem(key);
     return storedValue ? JSON.parse(storedValue) : initialValue;
@@ -11,10 +11,19 @@ export const useSessionStorage = <T>(
 
   const [storedValue, setStoredValue] = useState<T>(getStoredValue);
 
-  const setValue = (value: T) => {
-    setStoredValue(value);
-    sessionStorage.setItem(key, JSON.stringify(value));
+  const updateStoredValue = (value: T) => {
+    const newValue = { ...storedValue, ...value };
+    setStoredValue(newValue);
+    try {
+      sessionStorage.setItem(key, JSON.stringify(newValue));
+    } catch (error) {
+      console.warn(
+        "Failed to save to sessionStorage, using initial value instead.",
+        error,
+      );
+      setStoredValue(initialValue);
+    }
   };
 
-  return { storedValue, setValue };
+  return { storedValue, updateStoredValue };
 };

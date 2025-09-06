@@ -1,5 +1,5 @@
 @layer base {
-  html {
+  html[data-theme="default"]{
     --primary-0: oklch(0 0 0);
     --primary-4: oklch(0.266 0.112 293.009);
     --primary-6: oklch(0.281 0.122 293.009);
