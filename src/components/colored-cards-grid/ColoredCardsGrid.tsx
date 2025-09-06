@@ -1,3 +1,4 @@
+import { exportThemeVars } from "../../utils/export-theme-vars";
 import { containerColorsList } from "./cards-lists/container-colors-list";
 import { fixedColorsList } from "./cards-lists/fixed-colors-list";
 import { inverseColorsList } from "./cards-lists/inverse-colors-list";
@@ -54,6 +55,12 @@ export const ColoredCardsGrid = () => {
             </ColoredCard>
           ))}
         </div>
+        <button
+          onClick={() => exportThemeVars()}
+          className="secondary mt-20 rounded-sm py-1 font-bold"
+        >
+          Export css
+        </button>
       </div>
     </div>
   );

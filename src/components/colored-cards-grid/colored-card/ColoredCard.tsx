@@ -10,7 +10,7 @@ export const ColoredCard = ({ className, name, children }: ColoredCard) => {
   return (
     <span
       className={twMerge(
-        "line-clamp-4 flex h-36 flex-col gap-2 px-4 py-3 text-ellipsis",
+        "line-clamp-4 flex h-36 flex-col gap-2 rounded-md px-4 py-3 text-ellipsis",
         className,
       )}
     >
