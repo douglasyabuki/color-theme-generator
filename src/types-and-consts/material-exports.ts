@@ -2,7 +2,7 @@ import {
   exportMaterialCss,
   exportMaterialJson,
   exportMaterialPalettes,
-} from "../utils/material-css";
+} from "@/utils/material-exports";
 
 export const EXPORT_TARGETS = {
   semantic: {

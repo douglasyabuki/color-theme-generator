@@ -1,5 +1,11 @@
 import type { CSSProperties } from "react";
 
+import { formatArgbHex } from "@/lib/format-argb-hex";
+import {
+  formatMaterialTokenName,
+  getMaterialRoleVariable,
+} from "@/utils/material-css";
+
 import type { MaterialColorRole } from "../types-and-consts/material-design";
 import type { MaterialColorScheme } from "../types-and-consts/material-design";
 import {
@@ -8,16 +14,14 @@ import {
   SURFACES,
 } from "../types-and-consts/material-design";
 import { MATERIAL_COLOR_ROLES } from "../types-and-consts/material-design";
-import { formatHex } from "../utils/create-material-theme";
-import { kebabCase, roleVariable } from "../utils/material-css";
 
 const roleStyle = (
   background: MaterialColorRole,
   foreground: MaterialColorRole,
 ): CSSProperties => {
   return {
-    background: `var(${roleVariable(background)})`,
-    color: `var(${roleVariable(foreground)})`,
+    background: `var(${getMaterialRoleVariable(background)})`,
+    color: `var(${getMaterialRoleVariable(foreground)})`,
   };
 };
 
@@ -38,8 +42,8 @@ const RolePair = ({
       style={roleStyle(background, foreground)}
     >
       <div className="flex flex-wrap justify-between gap-1 text-[10px] leading-normal wrap-anywhere min-[1450px]:text-[11px] [&_>_span]:font-[650] [&_code]:text-[9px] min-[1450px]:[&_code]:text-[10px]">
-        <span>{kebabCase(background)}</span>
-        <code>{formatHex(scheme[background])}</code>
+        <span>{formatMaterialTokenName(background)}</span>
+        <code>{formatArgbHex(scheme[background])}</code>
       </div>
       <span
         className="mx-0 my-5.25 block text-[40px] leading-none font-medium tracking-[-2px]"
@@ -48,8 +52,8 @@ const RolePair = ({
         Aa
       </span>
       <div className="flex flex-wrap justify-between gap-1 text-[9px] wrap-anywhere min-[1450px]:text-[11px] [&_code]:text-[9px] min-[1450px]:[&_code]:text-[10px]">
-        <span>{kebabCase(foreground)}</span>
-        <code>{formatHex(scheme[foreground])}</code>
+        <span>{formatMaterialTokenName(foreground)}</span>
+        <code>{formatArgbHex(scheme[foreground])}</code>
       </div>
     </div>
   );
@@ -110,8 +114,10 @@ export const SemanticPreview = ({
               <span className="mb-2 text-[20px]" aria-hidden="true">
                 ↗
               </span>
-              <span>{kebabCase(role).replace("surface-", "")}</span>
-              <code>{formatHex(scheme[role])}</code>
+              <span>
+                {formatMaterialTokenName(role).replace("surface-", "")}
+              </span>
+              <code>{formatArgbHex(scheme[role])}</code>
             </div>
           ))}
         </div>
@@ -151,14 +157,15 @@ export const SemanticPreview = ({
             />
             <div className="mx-2.25 mt-0 mb-3.5 flex flex-wrap justify-between gap-1.25 text-[10px] text-(--md-sys-color-on-surface-variant) [&_code]:text-[9px]">
               on-surface-variant{" "}
-              <code>{formatHex(scheme.onSurfaceVariant)}</code>
+              <code>{formatArgbHex(scheme.onSurfaceVariant)}</code>
             </div>
             <div className="mx-2.25 mt-0 mb-2.25 flex flex-col gap-2 [&_>_div]:flex [&_>_div]:flex-wrap [&_>_div]:justify-between [&_>_div]:gap-1 [&_>_div]:rounded-[5px] [&_>_div]:border [&_>_div]:border-(--md-sys-color-outline) [&_>_div]:px-2 [&_>_div]:py-3 [&_>_div]:text-[10px] [&_>_div+div]:border-(--md-sys-color-outline-variant) [&_code]:text-[9px]">
               <div>
-                outline <code>{formatHex(scheme.outline)}</code>
+                outline <code>{formatArgbHex(scheme.outline)}</code>
               </div>
               <div>
-                outline-variant <code>{formatHex(scheme.outlineVariant)}</code>
+                outline-variant{" "}
+                <code>{formatArgbHex(scheme.outlineVariant)}</code>
               </div>
             </div>
           </article>
@@ -172,8 +179,8 @@ export const SemanticPreview = ({
             <h3>Inverse surface</h3>
             <p>inverse-on-surface</p>
             <code>
-              {formatHex(scheme.inverseSurface)} /{" "}
-              {formatHex(scheme.inverseOnSurface)}
+              {formatArgbHex(scheme.inverseSurface)} /{" "}
+              {formatArgbHex(scheme.inverseOnSurface)}
             </code>
             <span className="mt-auto pt-3.75 text-[11px] text-(--md-sys-color-inverse-primary)">
               inverse-primary <span aria-hidden="true">↗</span>
@@ -223,10 +230,12 @@ export const SemanticPreview = ({
               >
                 <span
                   className="inline-block h-4.5 w-4.5 shrink-0 rounded-[5px] border border-(--md-sys-color-outline-variant)"
-                  style={{ background: `var(${roleVariable(role)})` }}
+                  style={{
+                    background: `var(${getMaterialRoleVariable(role)})`,
+                  }}
                 />
-                <span>{kebabCase(role)}</span>
-                <code>{formatHex(color)}</code>
+                <span>{formatMaterialTokenName(role)}</span>
+                <code>{formatArgbHex(color)}</code>
               </div>
             );
           })}

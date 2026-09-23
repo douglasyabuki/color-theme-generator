@@ -2,7 +2,7 @@
 
 Material 3 color themes generated with Material Color Utilities.
 
-A React 19 / TypeScript / Vite / Tailwind app for exploring a single source color as light and dark Material schemes. Inspect semantic role pairs, mode-specific HCT reference palettes, and copy or download CSS and JSON.
+A React 19 / TypeScript / Vite / Tailwind app for exploring a single source color as light and dark Material schemes. Inspect semantic role pairs, mode-specific HCT reference palettes, and copy or download CSS and JSON. A separate shadcn adapter derives standard semantic color tokens from the same resolved Material theme.
 
 ## Run
 
@@ -41,17 +41,19 @@ source hex → Material HCT → independent light/dark DynamicSchemes
                          → serializable MaterialColorTheme
                            ├─ DOM adapter / semantic previews
                            ├─ semantic CSS / reference CSS
-                           └─ JSON / future independent adapters
+                           ├─ JSON
+                           └─ shadcn adapter → preview / token audit / exports
 ```
 
-- **src/material/**: pure generation, explicit role manifest/resolvers, types, and hex formatting. No DOM access.
-- **src/theme/**: applies an already resolved scheme to an element.
-- **src/export/**: serializes the model directly. The same semantic declaration formatter serves CSS exports and the DOM adapter.
+- **src/utils/**: Material theme generation, DOM application, CSS declarations and serializers, plus the shadcn adapter and its token utilities. Files use domain names such as `material-theme.ts` and `shadcn-chart-colors.ts`.
+- **src/lib/**: small adapters around external color libraries, including ARGB-to-hex and the Culori-specific ARGB-to-OKLCH formatter.
+- **src/types-and-consts/**: shared theme types and behavior-defining constants, including the Material role manifest and resolvers.
+- **src/lib/utils.ts**: the shared `cn` class-name utility used by the shadcn components and configured through `components.json`.
 - **src/components/**: semantic role preview, palette inspector, and export UI.
 
 ```ts
-import { createMaterialTheme } from "./src/material/create-material-theme";
-import { applyMaterialScheme } from "./src/theme/apply-theme-to-dom";
+import { createMaterialTheme } from "./src/utils/material-theme";
+import { applyMaterialScheme } from "./src/utils/material-dom";
 
 const theme = createMaterialTheme({
   sourceColor: "#6750A4",
@@ -151,13 +153,125 @@ Copy requires the browser clipboard API, normally available on HTTPS and localho
 - The published 0.4.0 package exposes the 2021 and 2025 specifications. This app explicitly uses 2025, not its older default and not the 2026 implementation on the upstream main branch. See [Material Color Utilities](https://github.com/material-foundation/material-color-utilities) and the [published specification types](https://unpkg.com/@material/material-color-utilities@0.4.0/dynamiccolor/color_spec.d.ts).
 - There are no intentional color-algorithm deviations from the selected upstream configuration. Differences from older fixed-role/static tone expectations are kept, not corrected locally.
 - The package is consumed through Vite's bundler. Its published extensionless internal imports require bundling for Node/SSR consumers as well.
-- Independent palette overrides, custom colors, multiple source colors, other variants, RGB/OKLCH formatting, persistence, and shadcn mapping are deferred. A future shadcn adapter should consume the normalized theme without changing Material semantics.
-- legacy/ is historical reference only. The active app neither imports it nor migrates its storage or CSS contracts.
+- Independent palette overrides, custom colors, multiple source colors, other variants, and persistence are deferred. The shadcn adapter consumes the normalized theme without changing Material semantics; Material exports retain their existing hex/ARGB formats.
+
+## shadcn color themes
+
+Choose **Material | shadcn** above the workspace. Material is the default; each target remembers its selected view for the session. shadcn offers **Preview**, **Tokens**, and **Export**. Source and contrast controls drive the same memoized Material theme. Appearance selects a resolved scheme for display only; neither switching target nor switching appearance changes exported data. Invalid source input keeps the last valid theme; reset still restores the default source, contrast, and light appearance without changing the selected target/view. Tonal Spot remains the supported Material variant.
+
+### Adapter and token contract
+
+`src/utils/shadcn-theme.ts` exposes `createShadcnTheme(materialTheme): ShadcnTheme`. This pure adapter has no React or DOM dependency. It reads each mode's resolved roles and reference palettes directly, retaining canonical unsigned ARGB colors. Metadata records `sourceColor`, `materialVariant`, `contrastLevel`, and `adapter: "shadcn"`.
+
+`SHADCN_TOKEN_MANIFEST` is Chroma's canonical shadcn color API, based on the [main shadcn theming contract](https://ui.shadcn.com/docs/theming). Token types, ordering, groups, source-role mapping, generation, audit, and serializers all follow the manifest. Its token count is not a separate public contract. The current Base UI destructive variant uses `text-destructive` over a translucent destructive background; it does not require `destructive-foreground`.
+
+| shadcn token | Material source role |
+| --- | --- |
+| `background` | `surface` |
+| `foreground` | `onSurface` |
+| `card` | `surfaceContainerLow` |
+| `card-foreground` | `onSurface` |
+| `popover` | `surfaceContainer` |
+| `popover-foreground` | `onSurface` |
+| `primary` | `primary` |
+| `primary-foreground` | `onPrimary` |
+| `secondary` | `secondaryContainer` |
+| `secondary-foreground` | `onSecondaryContainer` |
+| `muted` | `surfaceContainer` |
+| `muted-foreground` | `onSurfaceVariant` |
+| `accent` | `surfaceContainerHigh` |
+| `accent-foreground` | `onSurface` |
+| `destructive` | `error` |
+| `border` | `outlineVariant` |
+| `input` | `outline` |
+| `ring` | `primary` |
+| `sidebar` | `surfaceContainerLow` |
+| `sidebar-foreground` | `onSurface` |
+| `sidebar-primary` | `primary` |
+| `sidebar-primary-foreground` | `onPrimary` |
+| `sidebar-accent` | `surfaceContainerHigh` |
+| `sidebar-accent-foreground` | `onSurface` |
+| `sidebar-border` | `outlineVariant` |
+| `sidebar-ring` | `primary` |
+
+### Chart colors
+
+Charts are derived in `src/utils/shadcn-chart-colors.ts` from resolved Material roles and each mode's reference palettes. This mapping does not generate separate palettes:
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| chart-1 | resolved primary | resolved primary |
+| chart-2 | resolved tertiary | resolved tertiary |
+| chart-3 | resolved secondary | resolved secondary |
+| chart-4 | primary palette tone 60 | primary palette tone 50 |
+| chart-5 | tertiary palette tone 60 | tertiary palette tone 50 |
+
+Each lookup uses its mode's own reference palette. The initial dark tone 70 was too close to resolved primary/tertiary colors at reduced contrast, so both extra dark colors were changed globally to tone 50 after swatch review. There are no source-color-specific rules. The palette remains deliberately related; primary and secondary can look similar, especially at extreme contrast. It is not a guarantee of categorical or color-vision-deficiency separation. Use labels or other visual cues in charts.
+
+### OKLCH output
+
+`formatArgbOklch` is the single presentation conversion path: ARGB channel extraction ? normalized sRGB ? Culori OKLCH. No OKLCH value feeds back into generation. Lightness/chroma use four decimals and hue uses three, with trailing zeros removed, negative zero normalized, and achromatic hue set to zero. Preview variables, audit values, and serializers use this same formatter.
+
+### Preview behavior
+
+The project's shadcn Base UI components provide buttons, cards, fields, badges, menus, tabs, toggles, and an embedded sidebar. They use normal semantic utilities such as `bg-primary`, `bg-card`, `text-muted-foreground`, `border-border`, and `ring-ring`, with standard component variants.
+
+Local component presentation is a neutral Chroma style. Colors use standard shadcn theme tokens; preview styling is illustrative. The existing `base-vega` CLI setting describes component scaffolding, not the generated color theme or the locally customized preview style. No named preset is applied, and `ShadcnTheme` has no preset dependency. Optional preview styles may be added later without changing the adapter or exports.
+
+`applyShadcnScheme(element, scheme)` applies generated variables only to the shadcn workspace, with a local `.dark` class. The dropdown accepts `portalContainer`; every portalled component used by the preview mounts inside the workspace's portal host. The sidebar is embedded and non-collapsing, so it opens no mobile sheet or tooltip portal and registers no global shortcut. Material component CSS is scoped positively under `[data-material-workspace]`, covering the shared Material controls and Material content, with the shadcn workspace outside those selectors.
+
+The token audit groups Base, Surfaces, Actions, Muted / Accent, Borders / Focus, Charts, and Sidebar. Each entry shows its name, swatch, OKLCH value, and Material source role or mode-specific chart derivation.
+
+### Color exports
+
+| File | Contents |
+| --- | --- |
+| `shadcn-theme.css` | Variables only: light under `:root`, dark under `.dark` |
+| `shadcn-tailwind-theme.css` | Tailwind v4 `@theme inline` color mappings plus generated variables |
+| `shadcn-theme.json` | Native `registry:theme` item with `cssVars.light` and `cssVars.dark` |
+
+Every export includes both modes in deterministic manifest order, independently of the selected preview mode. Registry names are `chroma-<source-hex>`, with lowercase hex and no `#`. Copy and download are available for every format; unavailable clipboard access leaves selectable code and file downloads available.
+
+Paste the variables into an existing shadcn stylesheet, replacing its color variables. Use the Tailwind export when adding the color mappings as well. These are color definitions, not a replacement application stylesheet: preserve your fonts, radius, imports, animations, base styles, and other configuration. Existing projects should already configure a `.dark` Tailwind variant.
+
+```css
+/* Example excerpt; copy the complete generated output from Chroma. */
+:root {
+  --primary: oklch(0.4915 0.0798 296.213);
+  --primary-foreground: oklch(0.983 0.0123 317.743);
+}
+.dark {
+  --primary: oklch(0.8328 0.0623 298.56);
+  --primary-foreground: oklch(0.3757 0.0631 295.638);
+}
+```
+
+```tsx
+// Components consume the generated colors through their existing variants.
+<Button>Create project</Button>
+<Button variant="secondary">Save draft</Button>
+```
+
+Use `.dark` on your application's root for dark mode. The JSON output follows the [native registry theme format](https://ui.shadcn.com/docs/registry/examples#registrytheme). For a downloaded item, validate without installing a test framework:
+
+```js
+import { readFileSync } from "node:fs";
+import { registryItemSchema } from "shadcn/schema";
+
+const item = JSON.parse(readFileSync("shadcn-theme.json", "utf8"));
+const result = registryItemSchema.safeParse(item);
+console.log(result.success ? "Valid registry theme" : result.error);
+```
 
 ## Manual verification
 
-No automated tests or test framework are included.
+No automated test suite or test framework is included.
 
-Use the eight source presets (purple, blue, red, yellow, green, gray, near-black, near-white) in both modes at contrasts -1, 0, 0.5, and 1. Inspect foreground/background pairs, fixed families, surface hierarchy, and per-mode palettes. Also inspect narrow layouts, keyboard access, invalid input retention, reset, all export formats, clipboard behavior, and downloads. Exports should remain unchanged when only preview mode changes.
+- Check all eight source presets at contrast 0 in light and dark modes.
+- Check Material purple, gray, near-white, and near-black at contrasts -1, 0.5, and 1 in both modes.
+- Inspect token completeness and provenance, chart separation, action variants, surfaces, input borders, focus rings, sidebar states, and agreement between preview/audit/export values.
+- Check local menu portal inheritance in both modes, arrow-key navigation, Escape and focus restoration, narrow layouts, copy/download, clipboard fallback, invalid input retention, and reset.
+- Confirm target switches leave Material values unchanged and appearance changes leave every export unchanged.
+- Validate a representative item using `registryItemSchema.safeParse()` from `shadcn/schema`, then run `npm run build` and `npm run lint`.
 
-Implementation verification: installation, production build, and lint passed. Runtime generation was exercised for all eight sources, both modes, and all four contrast values; representative role values and the default CSS/JSON output were inspected. Browser visual/interaction checks remain unverified because no browser or app surface was connected in the implementation environment.
+Implementation verification: the generated color matrix was inspected for the configurations above; adapter completeness, deterministic output, unchanged Material input, formatting, and registry/CSS agreement were checked through one-off local inspection. Representative registry validation, `npm run build`, and `npm run lint` passed. Chart swatches were rendered and visually reviewed in both modes. Live browser interaction and responsive-layout checks remain unverified because no browser surface was available to the implementation environment.

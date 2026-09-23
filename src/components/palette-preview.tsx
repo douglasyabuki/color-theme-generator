@@ -1,11 +1,12 @@
+import { formatArgbHex } from "@/lib/format-argb-hex";
+import { formatMaterialTokenName } from "@/utils/material-css";
+
 import type { MaterialPalettes } from "../types-and-consts/material-design";
 import {
   PALETTE_NAMES,
   PALETTE_TONES,
 } from "../types-and-consts/material-design";
 import type { ThemeMode } from "../types-and-consts/theme-mode";
-import { formatHex } from "../utils/create-material-theme";
-import { kebabCase } from "../utils/material-css";
 
 export const PalettePreview = ({
   palettes,
@@ -35,13 +36,13 @@ export const PalettePreview = ({
             key={name}
           >
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3 [&_h3]:text-[16px] [&_h3]:font-medium [&_h3]:capitalize">
-              <h3>{kebabCase(name).replaceAll("-", " ")}</h3>
+              <h3>{formatMaterialTokenName(name).replaceAll("-", " ")}</h3>
               <span className="flex items-center gap-1.75 text-[10px] text-(--md-sys-color-on-surface-variant)">
                 <span
                   className="inline-block h-4.5 w-4.5 shrink-0 rounded-[5px] border border-(--md-sys-color-outline-variant)"
-                  style={{ background: formatHex(palettes[name].keyColor) }}
+                  style={{ background: formatArgbHex(palettes[name].keyColor) }}
                 />
-                Key color <code>{formatHex(palettes[name].keyColor)}</code>
+                Key color <code>{formatArgbHex(palettes[name].keyColor)}</code>
               </span>
             </div>
             <div className="grid grid-cols-13 gap-1.25 max-[1150px]:grid-cols-7 max-[1150px]:gap-x-1.5 max-[1150px]:gap-y-3 max-[580px]:grid-cols-4">
@@ -53,11 +54,11 @@ export const PalettePreview = ({
                   <div
                     className="mb-1.75 h-16.5 rounded-[5px] border border-(--md-sys-color-outline-variant)"
                     style={{
-                      background: formatHex(palettes[name].tones[tone]),
+                      background: formatArgbHex(palettes[name].tones[tone]),
                     }}
                   />
                   <span>{tone}</span>
-                  <code>{formatHex(palettes[name].tones[tone])}</code>
+                  <code>{formatArgbHex(palettes[name].tones[tone])}</code>
                 </div>
               ))}
             </div>

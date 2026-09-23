@@ -1,32 +1,24 @@
 import type { DynamicScheme } from "@material/material-color-utilities";
-import {
-  argbFromHex,
-  Hct,
-  hexFromArgb,
-} from "@material/material-color-utilities";
+import { argbFromHex, Hct } from "@material/material-color-utilities";
 
 import type {
   MaterialColorScheme,
   MaterialColorTheme,
   MaterialPalettes,
   MaterialThemeOptions,
-} from "../types-and-consts/material-design";
-import { SCHEME_FACTORIES } from "../types-and-consts/material-design";
+} from "@/types-and-consts/material-design";
+import { SCHEME_FACTORIES } from "@/types-and-consts/material-design";
 import {
   MATERIAL_COLOR_ROLES,
   MATERIAL_ROLE_RESOLVERS,
-} from "../types-and-consts/material-design";
+} from "@/types-and-consts/material-design";
 import {
   PALETTE_NAMES,
   PALETTE_TONES,
-} from "../types-and-consts/material-design";
+} from "@/types-and-consts/material-design";
+import { normalizeHexColor } from "@/utils/normalize-hex-color";
 
-export const normalizeSourceColor = (value: string): string | undefined => {
-  const hex = value.trim().replace(/^#/, "");
-  if (!/^(?:[\da-f]{3}|[\da-f]{6})$/i.test(hex)) return undefined;
-  return `#${(hex.length === 3 ? [...hex].map((char) => char + char).join("") : hex).toUpperCase()}`;
-};
-
+/** Resolves the configured Material role manifest for a dynamic scheme. */
 const resolveScheme = (scheme: DynamicScheme): MaterialColorScheme => {
   const entries = MATERIAL_COLOR_ROLES.flatMap((role) => {
     const color = MATERIAL_ROLE_RESOLVERS[role](scheme.colors);
@@ -36,6 +28,7 @@ const resolveScheme = (scheme: DynamicScheme): MaterialColorScheme => {
   return Object.fromEntries(entries) as MaterialColorScheme;
 };
 
+/** Copies palette key colors and configured tones into the serializable model. */
 const resolvePalettes = (scheme: DynamicScheme): MaterialPalettes => {
   const palettes = {
     primary: scheme.primaryPalette,
@@ -66,10 +59,27 @@ const resolvePalettes = (scheme: DynamicScheme): MaterialPalettes => {
   ) as MaterialPalettes;
 };
 
+/**
+ * Generates independent light and dark Material color schemes from one source.
+ *
+ * @param options Source color, Material variant, and contrast settings.
+ * @returns A serializable theme containing both schemes and their palettes.
+ * @throws {TypeError} If the source color or variant is unsupported.
+ * @throws {RangeError} If the contrast level is outside `-1` through `1`.
+ * @example
+ * ```ts
+ * const theme = createMaterialTheme({
+ *   sourceColor: "#6750A4",
+ *   variant: "tonal-spot",
+ *   contrastLevel: 0,
+ * });
+ * theme.light.primary; // resolved ARGB color
+ * ```
+ */
 export const createMaterialTheme = (
   options: MaterialThemeOptions,
 ): MaterialColorTheme => {
-  const sourceColor = normalizeSourceColor(options.sourceColor);
+  const sourceColor = normalizeHexColor(options.sourceColor);
   if (!sourceColor)
     throw new TypeError("Enter an opaque 3- or 6-digit hex color.");
   if (
@@ -99,8 +109,4 @@ export const createMaterialTheme = (
     dark: resolveScheme(dark),
     palettes: { light: resolvePalettes(light), dark: resolvePalettes(dark) },
   };
-};
-
-export const formatHex = (argb: number): string => {
-  return hexFromArgb(argb).toUpperCase();
 };

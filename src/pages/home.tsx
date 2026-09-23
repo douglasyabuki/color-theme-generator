@@ -1,28 +1,29 @@
-import { useLayoutEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react";
 
 import { ExportPreview } from "@/components/export-preview";
 import { PalettePreview } from "@/components/palette-preview";
 import { SemanticPreview } from "@/components/semantic-preview";
-import { DEFAULT_THEME_OPTIONS } from "@/types-and-consts/material-design";
-import type { ThemeMode } from "@/types-and-consts/theme-mode";
-import { applyMaterialScheme } from "@/utils/apply-theme-to-dom";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
-  createMaterialTheme,
-  normalizeSourceColor,
-} from "@/utils/create-material-theme";
+  SOURCE_PRESETS,
+  type ThemeTarget,
+  type View,
+  VIEWS,
+} from "@/types-and-consts/home";
+import { DEFAULT_THEME_OPTIONS } from "@/types-and-consts/material-design";
+import type { ShadcnView } from "@/types-and-consts/shadcn-workspace";
+import type { ThemeMode } from "@/types-and-consts/theme-mode";
+import { applyMaterialScheme } from "@/utils/material-dom";
+import { createMaterialTheme } from "@/utils/material-theme";
+import { normalizeHexColor } from "@/utils/normalize-hex-color";
+import { createShadcnTheme } from "@/utils/shadcn-theme";
 
-const SOURCE_PRESETS = [
-  { name: "Material purple", color: "#6750A4" },
-  { name: "Blue", color: "#0000FF" },
-  { name: "Red", color: "#FF0000" },
-  { name: "Yellow", color: "#FFFF00" },
-  { name: "Green", color: "#00FF00" },
-  { name: "Gray", color: "#808080" },
-  { name: "Near black", color: "#101010" },
-  { name: "Near white", color: "#F5F5F5" },
-] as const;
-const VIEWS = ["Semantic roles", "Reference palettes", "Export"] as const;
-type View = (typeof VIEWS)[number];
+const ShadcnWorkspace = lazy(() =>
+  import("@/components/shadcn/shadcn-workspace").then((module) => ({
+    default: module.ShadcnWorkspace,
+  })),
+);
 
 export const Home = () => {
   const [sourceColor, setSourceColor] = useState(
@@ -31,6 +32,8 @@ export const Home = () => {
   const [sourceInput, setSourceInput] = useState(sourceColor);
   const [contrastLevel, setContrastLevel] = useState(0);
   const [mode, setMode] = useState<ThemeMode>("light");
+  const [target, setTarget] = useState<ThemeTarget>("material");
+  const [shadcnView, setShadcnView] = useState<ShadcnView>("Preview");
   const [view, setView] = useState<View>("Semantic roles");
   const theme = useMemo(
     () =>
@@ -41,7 +44,8 @@ export const Home = () => {
       }),
     [sourceColor, contrastLevel],
   );
-  const invalidSource = normalizeSourceColor(sourceInput) === undefined;
+  const shadcnTheme = useMemo(() => createShadcnTheme(theme), [theme]);
+  const invalidSource = normalizeHexColor(sourceInput) === undefined;
 
   useLayoutEffect(() => {
     const root = document.documentElement;
@@ -52,7 +56,7 @@ export const Home = () => {
 
   const updateSource = (value: string) => {
     setSourceInput(value);
-    const normalized = normalizeSourceColor(value);
+    const normalized = normalizeHexColor(value);
     if (normalized) setSourceColor(normalized);
   };
 
@@ -83,7 +87,7 @@ export const Home = () => {
           <p className="mt-5.5 text-[13px] leading-[1.8] text-(--md-sys-color-on-surface-variant) max-[580px]:text-[12px]">
             Explore the relationships that make a theme.
             <br />
-            Material 3 color themes generated with Material Color Utilities.
+            Material 3 and shadcn colors, powered by Material Color Utilities.
           </p>
         </div>
         <div
@@ -101,6 +105,7 @@ export const Home = () => {
       </section>
       <div className="grid grid-cols-[250px_minmax(0,1fr)] items-start gap-9 max-[1150px]:grid-cols-[224px_minmax(0,1fr)] max-[1150px]:gap-6 max-[800px]:grid-cols-1 min-[1450px]:grid-cols-[270px_minmax(0,1fr)] min-[1450px]:gap-10.5">
         <aside
+          data-material-workspace=""
           className="sticky top-6 rounded-2xl border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5.5 max-[1150px]:p-4.5 max-[800px]:static max-[800px]:grid max-[800px]:grid-cols-3 max-[800px]:gap-x-6 max-[800px]:gap-y-0 max-[580px]:grid-cols-2 max-[580px]:gap-x-5 max-[580px]:gap-y-0"
           aria-label="Theme controls"
         >
@@ -135,7 +140,7 @@ export const Home = () => {
                 aria-describedby="source-help"
                 onChange={(event) => updateSource(event.target.value)}
                 onBlur={() => {
-                  const normalized = normalizeSourceColor(sourceInput);
+                  const normalized = normalizeHexColor(sourceInput);
                   if (normalized) setSourceInput(normalized);
                 }}
               />
@@ -249,35 +254,72 @@ export const Home = () => {
           </p>
         </aside>
         <div className="min-w-0 scroll-mt-5" id="workspace" tabIndex={-1}>
-          <div className="flex min-h-12.75 items-center justify-between gap-3 border-b border-b-(--md-sys-color-outline-variant) max-[580px]:min-h-10.5">
-            <nav
-              className="flex gap-6 self-stretch max-[1150px]:gap-4.5 max-[580px]:w-full max-[580px]:justify-between max-[580px]:gap-3 [&_button]:relative [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-0 [&_button]:pt-1 [&_button]:pb-4 [&_button]:text-[12px] [&_button]:whitespace-nowrap [&_button]:text-(--md-sys-color-on-surface-variant) max-[580px]:[&_button]:text-[11px] [&_button[aria-pressed=true]]:font-[650] [&_button[aria-pressed=true]]:text-(--md-sys-color-primary) [&_button[aria-pressed=true]::after]:absolute [&_button[aria-pressed=true]::after]:right-0 [&_button[aria-pressed=true]::after]:-bottom-px [&_button[aria-pressed=true]::after]:left-0 [&_button[aria-pressed=true]::after]:h-0.5 [&_button[aria-pressed=true]::after]:bg-(--md-sys-color-primary) [&_button[aria-pressed=true]::after]:content-['']"
-              aria-label="Theme views"
-            >
-              {VIEWS.map((name, index) => (
-                <button
-                  key={name}
-                  aria-pressed={view === name}
-                  onClick={() => setView(name)}
-                >
-                  <span className="mr-1.5 text-[9px] max-[580px]:hidden">
-                    0{index + 1}
-                  </span>
-                  {name}
-                </button>
-              ))}
-            </nav>
-            <span className="mb-2.5 rounded-[20px] bg-(--md-sys-color-surface-container) px-2.25 py-1.25 text-[10px] whitespace-nowrap capitalize max-[1150px]:hidden max-[800px]:block max-[580px]:hidden">
-              {mode} scheme
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+            <span className="text-sm font-medium" id="target-label">
+              Theme target
             </span>
+            <ToggleGroup
+              aria-labelledby="target-label"
+              variant="outline"
+              value={[target]}
+              onValueChange={(values) => {
+                const value = values[0];
+                if (value === "material" || value === "shadcn")
+                  setTarget(value);
+              }}
+            >
+              <ToggleGroupItem value="material">Material</ToggleGroupItem>
+              <ToggleGroupItem value="shadcn">shadcn</ToggleGroupItem>
+            </ToggleGroup>
           </div>
-          {view === "Semantic roles" && (
-            <SemanticPreview scheme={theme[mode]} />
+          {target === "shadcn" ? (
+            <Suspense
+              fallback={
+                <div role="status" aria-label="Loading shadcn preview">
+                  <Skeleton className="h-80 w-full" />
+                </div>
+              }
+            >
+              <ShadcnWorkspace
+                theme={shadcnTheme}
+                mode={mode}
+                view={shadcnView}
+                onViewChange={setShadcnView}
+              />
+            </Suspense>
+          ) : (
+            <div data-material-workspace="">
+              <div className="flex min-h-12.75 items-center justify-between gap-3 border-b border-b-(--md-sys-color-outline-variant) max-[580px]:min-h-10.5">
+                <nav
+                  className="flex gap-6 self-stretch max-[1150px]:gap-4.5 max-[580px]:w-full max-[580px]:justify-between max-[580px]:gap-3 [&_button]:relative [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-0 [&_button]:pt-1 [&_button]:pb-4 [&_button]:text-[12px] [&_button]:whitespace-nowrap [&_button]:text-(--md-sys-color-on-surface-variant) max-[580px]:[&_button]:text-[11px] [&_button[aria-pressed=true]]:font-[650] [&_button[aria-pressed=true]]:text-(--md-sys-color-primary) [&_button[aria-pressed=true]::after]:absolute [&_button[aria-pressed=true]::after]:right-0 [&_button[aria-pressed=true]::after]:-bottom-px [&_button[aria-pressed=true]::after]:left-0 [&_button[aria-pressed=true]::after]:h-0.5 [&_button[aria-pressed=true]::after]:bg-(--md-sys-color-primary) [&_button[aria-pressed=true]::after]:content-['']"
+                  aria-label="Theme views"
+                >
+                  {VIEWS.map((name, index) => (
+                    <button
+                      key={name}
+                      aria-pressed={view === name}
+                      onClick={() => setView(name)}
+                    >
+                      <span className="mr-1.5 text-[9px] max-[580px]:hidden">
+                        0{index + 1}
+                      </span>
+                      {name}
+                    </button>
+                  ))}
+                </nav>
+                <span className="mb-2.5 rounded-[20px] bg-(--md-sys-color-surface-container) px-2.25 py-1.25 text-[10px] whitespace-nowrap capitalize max-[1150px]:hidden max-[800px]:block max-[580px]:hidden">
+                  {mode} scheme
+                </span>
+              </div>
+              {view === "Semantic roles" && (
+                <SemanticPreview scheme={theme[mode]} />
+              )}
+              {view === "Reference palettes" && (
+                <PalettePreview palettes={theme.palettes[mode]} mode={mode} />
+              )}
+              {view === "Export" && <ExportPreview theme={theme} />}
+            </div>
           )}
-          {view === "Reference palettes" && (
-            <PalettePreview palettes={theme.palettes[mode]} mode={mode} />
-          )}
-          {view === "Export" && <ExportPreview theme={theme} />}
         </div>
       </div>
     </>
