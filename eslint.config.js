@@ -32,4 +32,22 @@ export default defineConfig([
       "simple-import-sort/exports": "error",
     },
   },
+  {
+    files: ["src/components/ui/*.tsx"],
+    rules: {
+      // shadcn shares variant factories and its sidebar hook alongside components.
+      "react-refresh/only-export-components": [
+        "error",
+        {
+          allowExportNames: [
+            "buttonVariants",
+            "badgeVariants",
+            "tabsListVariants",
+            "toggleVariants",
+            "useSidebar",
+          ],
+        },
+      ],
+    },
+  },
 ]);
