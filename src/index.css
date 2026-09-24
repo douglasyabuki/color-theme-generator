@@ -16,93 +16,9 @@
   }
   * {
     box-sizing: border-box;
-    /* @apply border-border outline-ring/50; */
   }
   body {
-    margin: 0;
     min-width: 320px;
-    /* @apply bg-background text-foreground; */
-  }
-  :where([data-material-workspace]) button {
-    font: inherit;
-  }
-  :where([data-material-workspace]) input {
-    font: inherit;
-  }
-  :where([data-material-workspace]) button {
-    -webkit-tap-highlight-color: transparent;
-  }
-  :where([data-material-workspace]) a {
-    -webkit-tap-highlight-color: transparent;
-  }
-  :where([data-material-workspace]) input[type="color"] {
-    -webkit-tap-highlight-color: transparent;
-  }
-  :where([data-material-workspace]) input[type="range"] {
-    -webkit-tap-highlight-color: transparent;
-  }
-  :where([data-material-workspace]) button {
-    cursor: pointer;
-  }
-  :where([data-material-workspace]) button {
-    border-radius: 0;
-  }
-  :where([data-material-workspace]) input {
-    border-radius: 0;
-  }
-  :where([data-material-workspace]) button {
-    transition:
-      background-color 150ms,
-      color 150ms,
-      border-color 150ms;
-  }
-  :where([data-material-workspace]) button:focus-visible {
-    outline: 3px solid var(--md-sys-color-primary);
-    outline-offset: 4px;
-  }
-  :where([data-material-workspace]) a:focus-visible {
-    outline: 3px solid var(--md-sys-color-primary);
-    outline-offset: 4px;
-  }
-  :where([data-material-workspace]) input:focus-visible {
-    outline: 3px solid var(--md-sys-color-primary);
-    outline-offset: 4px;
-  }
-  :where([data-material-workspace]) a {
-    color: inherit;
-    text-decoration: none;
-  }
-  :where([data-material-workspace]) h2 {
-    margin: 0;
-  }
-  :where([data-material-workspace]) h3 {
-    margin: 0;
-  }
-  :where([data-material-workspace]) p {
-    margin: 0;
-  }
-  :where([data-material-workspace]) code {
-    font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
-    font-variant-numeric: tabular-nums;
-  }
-  :where([data-material-workspace]) output {
-    font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
-    font-variant-numeric: tabular-nums;
-  }
-  :where([data-material-workspace]) ::selection {
-    background: var(--md-sys-color-primary-container);
-    color: var(--md-sys-color-on-primary-container);
-  }
-  :where([data-material-workspace]) input[type="color"] {
-    padding: 0;
-    border: 0;
-    background: none;
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-    cursor: pointer;
-    border-radius: 6px;
-    overflow: hidden;
   }
   :where([data-material-workspace])
     input[type="color"]::-webkit-color-swatch-wrapper {
@@ -111,40 +27,6 @@
   :where([data-material-workspace]) input[type="color"]::-webkit-color-swatch {
     border: 0;
     border-radius: 5px;
-  }
-  :where([data-material-workspace]) input[type="text"] {
-    min-width: 0;
-    width: 100%;
-    font-family: "Cascadia Code", Consolas, monospace;
-    font-size: 14px;
-    color: var(--md-sys-color-on-surface);
-    background: none;
-    border: 0;
-    padding: 5px 0;
-  }
-  :where([data-material-workspace]) input[type="range"] {
-    width: 100%;
-    accent-color: var(--md-sys-color-primary);
-    cursor: pointer;
-    margin: 9px 0;
-    height: 18px;
-  }
-  :where([data-material-workspace]) dl {
-    margin: 15px 0 0;
-  }
-  :where([data-material-workspace]) dl > div {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 11px;
-    font-size: 11px;
-  }
-  :where([data-material-workspace]) dt {
-    color: var(--md-sys-color-on-surface-variant);
-  }
-  :where([data-material-workspace]) dd {
-    margin: 0;
-    font-weight: 600;
   }
   @media (prefers-reduced-motion: reduce) {
     *,

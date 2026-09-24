@@ -100,13 +100,13 @@ export const Home = () => {
       <div className="grid grid-cols-[250px_minmax(0,1fr)] items-start gap-9 max-[1150px]:grid-cols-[224px_minmax(0,1fr)] max-[1150px]:gap-6 max-[800px]:grid-cols-1 min-[1450px]:grid-cols-[270px_minmax(0,1fr)] min-[1450px]:gap-10.5">
         <aside
           data-material-workspace=""
-          className="sticky top-6 rounded-2xl border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5.5 max-[1150px]:p-4.5 max-[800px]:static max-[800px]:grid max-[800px]:grid-cols-3 max-[800px]:gap-x-6 max-[800px]:gap-y-0 max-[580px]:grid-cols-2 max-[580px]:gap-x-5 max-[580px]:gap-y-0"
+          className="sticky top-6 rounded-2xl border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-5.5 selection:bg-(--md-sys-color-primary-container) selection:text-(--md-sys-color-on-primary-container) max-[1150px]:p-4.5 max-[800px]:static max-[800px]:grid max-[800px]:grid-cols-3 max-[800px]:gap-x-6 max-[800px]:gap-y-0 max-[580px]:grid-cols-2 max-[580px]:gap-x-5 max-[580px]:gap-y-0"
           aria-label="Theme controls"
         >
           <div className="flex items-center justify-between gap-2 pb-6.5 max-[800px]:col-span-full max-[800px]:pb-5 [&_h2]:text-[16px] [&_h2]:font-semibold [&_h2]:tracking-[-0.5px]">
             <h2>Your theme</h2>
             <button
-              className="flex items-center gap-1.5 border-0 bg-transparent pt-1.5 pr-0 pb-1.5 pl-2 text-[11px] text-(--md-sys-color-primary) [&:hover]:underline"
+              className="flex cursor-pointer items-center gap-1.5 border-0 bg-transparent pt-1.5 pr-0 pb-1.5 pl-2 text-[11px] text-(--md-sys-color-primary) transition-[background-color,color,border-color] duration-150 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-(--md-sys-color-primary) [&:hover]:underline"
               onClick={reset}
             >
               Reset <span aria-hidden="true">↺</span>
@@ -116,6 +116,7 @@ export const Home = () => {
             <label htmlFor="source-color">Source color</label>
             <div className="flex items-center gap-2 rounded-[9px] border border-(--md-sys-color-outline) bg-(--md-sys-color-surface-container-lowest) p-1.25 focus-within:[outline:2px_solid_var(--md-sys-color-primary)] focus-within:outline-offset-2 [&_input:focus-visible]:[outline:0]">
               <input
+                className="h-8 w-8 shrink-0 cursor-pointer overflow-hidden rounded-[6px] [background:none]"
                 id="source-picker"
                 aria-label="Choose source color"
                 type="color"
@@ -125,6 +126,7 @@ export const Home = () => {
                 }
               />
               <input
+                className="w-full min-w-0 px-0 py-1.25 font-[Cascadia_Code,Consolas,monospace] text-[14px] text-(--md-sys-color-on-surface) [background:none]"
                 id="source-color"
                 type="text"
                 value={sourceInput}
@@ -161,7 +163,7 @@ export const Home = () => {
                   aria-label={`Use ${preset.name}`}
                   aria-pressed={sourceColor === preset.color}
                   title={preset.name}
-                  className="aspect-square min-w-0 rounded-full border border-transparent bg-transparent p-0.75 aria-pressed:border-(--md-sys-color-primary) [&_span]:block [&_span]:h-full [&_span]:w-full [&_span]:rounded-full [&_span]:border [&_span]:border-(--md-sys-color-outline-variant) [&:hover]:border-(--md-sys-color-primary)"
+                  className="aspect-square min-w-0 cursor-pointer rounded-full border border-transparent bg-transparent p-0.75 transition-[background-color,color,border-color] duration-150 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-(--md-sys-color-primary) aria-pressed:border-(--md-sys-color-primary) [&_span]:block [&_span]:h-full [&_span]:w-full [&_span]:rounded-full [&_span]:border [&_span]:border-(--md-sys-color-outline-variant) [&:hover]:border-(--md-sys-color-primary)"
                   onClick={() => updateSource(preset.color)}
                 >
                   <span style={{ background: preset.color }} />
@@ -182,12 +184,14 @@ export const Home = () => {
               aria-labelledby="mode-label"
             >
               <button
+                className="cursor-pointer transition-[background-color,color,border-color] duration-150 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-(--md-sys-color-primary)"
                 aria-pressed={mode === "light"}
                 onClick={() => setMode("light")}
               >
                 <span aria-hidden="true">☀</span> Light
               </button>
               <button
+                className="cursor-pointer transition-[background-color,color,border-color] duration-150 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-(--md-sys-color-primary)"
                 aria-pressed={mode === "dark"}
                 onClick={() => setMode("dark")}
               >
@@ -198,9 +202,15 @@ export const Home = () => {
           <div className="mb-6.25 max-[800px]:mb-2.5 max-[580px]:mb-5.5 max-[580px]:nth-of-type-2:col-span-full [&_label]:mb-2.5 [&_label]:block [&_label]:text-[12px] [&_label]:font-semibold">
             <div className="flex items-baseline justify-between [&_output]:rounded-sm [&_output]:bg-(--md-sys-color-surface-container-high) [&_output]:px-1.5 [&_output]:py-0.5 [&_output]:text-[11px]">
               <label htmlFor="contrast">Contrast</label>
-              <output htmlFor="contrast">{contrastLevel.toFixed(2)}</output>
+              <output
+                className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums"
+                htmlFor="contrast"
+              >
+                {contrastLevel.toFixed(2)}
+              </output>
             </div>
             <input
+              className="my-2.25 h-4.5 w-full cursor-pointer accent-(--md-sys-color-primary) focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-(--md-sys-color-primary)"
               id="contrast"
               type="range"
               min="-1"
@@ -222,22 +232,32 @@ export const Home = () => {
             <span className="text-[10px] font-[650] tracking-[1.8px] uppercase">
               Generation settings
             </span>
-            <dl>
-              <div>
-                <dt>Variant</dt>
-                <dd>Tonal Spot</dd>
+            <dl className="mt-3.75">
+              <div className="mt-2.75 flex justify-between gap-2.5 text-[11px]">
+                <dt className="text-(--md-sys-color-on-surface-variant)">
+                  Variant
+                </dt>
+                <dd className="font-semibold">Tonal Spot</dd>
               </div>
-              <div>
-                <dt>Specification</dt>
-                <dd>{theme.metadata.specVersion}</dd>
+              <div className="mt-2.75 flex justify-between gap-2.5 text-[11px]">
+                <dt className="text-(--md-sys-color-on-surface-variant)">
+                  Specification
+                </dt>
+                <dd className="font-semibold">{theme.metadata.specVersion}</dd>
               </div>
-              <div>
-                <dt>Platform</dt>
-                <dd>Phone</dd>
+              <div className="mt-2.75 flex justify-between gap-2.5 text-[11px]">
+                <dt className="text-(--md-sys-color-on-surface-variant)">
+                  Platform
+                </dt>
+                <dd className="font-semibold">Phone</dd>
               </div>
-              <div>
-                <dt>Color engine</dt>
-                <dd>MCU {theme.metadata.packageVersion}</dd>
+              <div className="mt-2.75 flex justify-between gap-2.5 text-[11px]">
+                <dt className="text-(--md-sys-color-on-surface-variant)">
+                  Color engine
+                </dt>
+                <dd className="font-semibold">
+                  MCU {theme.metadata.packageVersion}
+                </dd>
               </div>
             </dl>
           </div>
@@ -274,7 +294,10 @@ export const Home = () => {
               onViewChange={setShadcnView}
             />
           ) : (
-            <div data-material-workspace="">
+            <div
+              data-material-workspace=""
+              className="selection:bg-(--md-sys-color-primary-container) selection:text-(--md-sys-color-on-primary-container)"
+            >
               <div className="flex min-h-12.75 items-center justify-between gap-3 border-b border-b-(--md-sys-color-outline-variant) max-[580px]:min-h-10.5">
                 <nav
                   className="flex gap-6 self-stretch max-[1150px]:gap-4.5 max-[580px]:w-full max-[580px]:justify-between max-[580px]:gap-3 [&_button]:relative [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-0 [&_button]:pt-1 [&_button]:pb-4 [&_button]:text-[12px] [&_button]:whitespace-nowrap [&_button]:text-(--md-sys-color-on-surface-variant) max-[580px]:[&_button]:text-[11px] [&_button[aria-pressed=true]]:font-[650] [&_button[aria-pressed=true]]:text-(--md-sys-color-primary) [&_button[aria-pressed=true]::after]:absolute [&_button[aria-pressed=true]::after]:right-0 [&_button[aria-pressed=true]::after]:-bottom-px [&_button[aria-pressed=true]::after]:left-0 [&_button[aria-pressed=true]::after]:h-0.5 [&_button[aria-pressed=true]::after]:bg-(--md-sys-color-primary) [&_button[aria-pressed=true]::after]:content-['']"
@@ -282,6 +305,7 @@ export const Home = () => {
                 >
                   {VIEWS.map((name, index) => (
                     <button
+                      className="cursor-pointer transition-[background-color,color,border-color] duration-150 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-(--md-sys-color-primary)"
                       key={name}
                       aria-pressed={view === name}
                       onClick={() => setView(name)}

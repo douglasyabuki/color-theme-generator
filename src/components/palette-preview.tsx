@@ -42,7 +42,10 @@ export const PalettePreview = ({
                   className="inline-block h-4.5 w-4.5 shrink-0 rounded-[5px] border border-(--md-sys-color-outline-variant)"
                   style={{ background: formatArgbHex(palettes[name].keyColor) }}
                 />
-                Key color <code>{formatArgbHex(palettes[name].keyColor)}</code>
+                Key color{" "}
+                <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+                  {formatArgbHex(palettes[name].keyColor)}
+                </code>
               </span>
             </div>
             <div className="grid grid-cols-13 gap-1.25 max-[1150px]:grid-cols-7 max-[1150px]:gap-x-1.5 max-[1150px]:gap-y-3 max-[580px]:grid-cols-4">
@@ -58,7 +61,9 @@ export const PalettePreview = ({
                     }}
                   />
                   <span>{tone}</span>
-                  <code>{formatArgbHex(palettes[name].tones[tone])}</code>
+                  <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+                    {formatArgbHex(palettes[name].tones[tone])}
+                  </code>
                 </div>
               ))}
             </div>

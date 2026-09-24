@@ -43,7 +43,9 @@ const RolePair = ({
     >
       <div className="flex flex-wrap justify-between gap-1 text-[10px] leading-normal wrap-anywhere min-[1450px]:text-[11px] [&_>_span]:font-[650] [&_code]:text-[9px] min-[1450px]:[&_code]:text-[10px]">
         <span>{formatMaterialTokenName(background)}</span>
-        <code>{formatArgbHex(scheme[background])}</code>
+        <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+          {formatArgbHex(scheme[background])}
+        </code>
       </div>
       <span
         className="mx-0 my-5.25 block text-[40px] leading-none font-medium tracking-[-2px]"
@@ -53,7 +55,9 @@ const RolePair = ({
       </span>
       <div className="flex flex-wrap justify-between gap-1 text-[9px] wrap-anywhere min-[1450px]:text-[11px] [&_code]:text-[9px] min-[1450px]:[&_code]:text-[10px]">
         <span>{formatMaterialTokenName(foreground)}</span>
-        <code>{formatArgbHex(scheme[foreground])}</code>
+        <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+          {formatArgbHex(scheme[foreground])}
+        </code>
       </div>
     </div>
   );
@@ -117,7 +121,9 @@ export const SemanticPreview = ({
               <span>
                 {formatMaterialTokenName(role).replace("surface-", "")}
               </span>
-              <code>{formatArgbHex(scheme[role])}</code>
+              <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+                {formatArgbHex(scheme[role])}
+              </code>
             </div>
           ))}
         </div>
@@ -157,15 +163,22 @@ export const SemanticPreview = ({
             />
             <div className="mx-2.25 mt-0 mb-3.5 flex flex-wrap justify-between gap-1.25 text-[10px] text-(--md-sys-color-on-surface-variant) [&_code]:text-[9px]">
               on-surface-variant{" "}
-              <code>{formatArgbHex(scheme.onSurfaceVariant)}</code>
+              <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+                {formatArgbHex(scheme.onSurfaceVariant)}
+              </code>
             </div>
             <div className="mx-2.25 mt-0 mb-2.25 flex flex-col gap-2 [&_>_div]:flex [&_>_div]:flex-wrap [&_>_div]:justify-between [&_>_div]:gap-1 [&_>_div]:rounded-[5px] [&_>_div]:border [&_>_div]:border-(--md-sys-color-outline) [&_>_div]:px-2 [&_>_div]:py-3 [&_>_div]:text-[10px] [&_>_div+div]:border-(--md-sys-color-outline-variant) [&_code]:text-[9px]">
               <div>
-                outline <code>{formatArgbHex(scheme.outline)}</code>
+                outline{" "}
+                <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+                  {formatArgbHex(scheme.outline)}
+                </code>
               </div>
               <div>
                 outline-variant{" "}
-                <code>{formatArgbHex(scheme.outlineVariant)}</code>
+                <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+                  {formatArgbHex(scheme.outlineVariant)}
+                </code>
               </div>
             </div>
           </article>
@@ -178,7 +191,7 @@ export const SemanticPreview = ({
             </span>
             <h3>Inverse surface</h3>
             <p>inverse-on-surface</p>
-            <code>
+            <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
               {formatArgbHex(scheme.inverseSurface)} /{" "}
               {formatArgbHex(scheme.inverseOnSurface)}
             </code>
@@ -235,7 +248,9 @@ export const SemanticPreview = ({
                   }}
                 />
                 <span>{formatMaterialTokenName(role)}</span>
-                <code>{formatArgbHex(color)}</code>
+                <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+                  {formatArgbHex(color)}
+                </code>
               </div>
             );
           })}

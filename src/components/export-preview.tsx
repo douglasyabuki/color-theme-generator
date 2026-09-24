@@ -56,7 +56,7 @@ export const ExportPreview = ({ theme }: { theme: MaterialColorTheme }) => {
         {(Object.keys(EXPORT_TARGETS) as (keyof typeof EXPORT_TARGETS)[]).map(
           (key) => (
             <button
-              className="flex flex-col gap-2.25 rounded-xl border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-4.25 text-left text-(--md-sys-color-on-surface) aria-pressed:border-(--md-sys-color-primary) aria-pressed:bg-(--md-sys-color-secondary-container) aria-pressed:text-(--md-sys-color-on-secondary-container) max-[580px]:p-[12px_9px] [&_>_span:last-child]:text-[10px] [&_>_span:last-child]:leading-[1.6] max-[580px]:[&_>_span:last-child]:hidden [&_strong]:text-[12px] [&_strong]:font-semibold max-[580px]:[&_strong]:text-[10px]"
+              className="cursor-pointer transition-[background-color,color,border-color] duration-150 focus-visible:outline-3 focus-visible:outline-(--md-sys-color-primary) focus-visible:outline-offset-4 flex flex-col gap-2.25 rounded-xl border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-4.25 text-left text-(--md-sys-color-on-surface) aria-pressed:border-(--md-sys-color-primary) aria-pressed:bg-(--md-sys-color-secondary-container) aria-pressed:text-(--md-sys-color-on-secondary-container) max-[580px]:p-[12px_9px] [&_>_span:last-child]:text-[10px] [&_>_span:last-child]:leading-[1.6] max-[580px]:[&_>_span:last-child]:hidden [&_strong]:text-[12px] [&_strong]:font-semibold max-[580px]:[&_strong]:text-[10px]"
               aria-pressed={target === key}
               key={key}
               onClick={() => setTarget(key)}
@@ -80,13 +80,13 @@ export const ExportPreview = ({ theme }: { theme: MaterialColorTheme }) => {
           </span>
           <div className="flex gap-2">
             <button
-              className="inline-flex min-h-9 items-center gap-3 rounded-3xl border border-(--md-sys-color-outline) bg-transparent px-3.75 py-2 text-[11px] font-semibold text-(--md-sys-color-primary) [&:hover]:bg-(--md-sys-color-surface-container-high)"
+              className="cursor-pointer transition-[background-color,color,border-color] duration-150 focus-visible:outline-3 focus-visible:outline-(--md-sys-color-primary) focus-visible:outline-offset-4 inline-flex min-h-9 items-center gap-3 rounded-3xl border border-(--md-sys-color-outline) bg-transparent px-3.75 py-2 text-[11px] font-semibold text-(--md-sys-color-primary) [&:hover]:bg-(--md-sys-color-surface-container-high)"
               onClick={copyExport}
             >
               Copy code
             </button>
             <button
-              className="inline-flex min-h-9 items-center gap-3 rounded-3xl border border-transparent bg-(--md-sys-color-primary) px-3.75 py-2 text-[11px] font-semibold text-(--md-sys-color-on-primary) [&:hover]:bg-(--md-sys-color-primary-container) [&:hover]:text-(--md-sys-color-on-primary-container)"
+              className="cursor-pointer transition-[background-color,color,border-color] duration-150 focus-visible:outline-3 focus-visible:outline-(--md-sys-color-primary) focus-visible:outline-offset-4 inline-flex min-h-9 items-center gap-3 rounded-3xl border border-transparent bg-(--md-sys-color-primary) px-3.75 py-2 text-[11px] font-semibold text-(--md-sys-color-on-primary) [&:hover]:bg-(--md-sys-color-primary-container) [&:hover]:text-(--md-sys-color-on-primary-container)"
               onClick={downloadExport}
             >
               Download <span aria-hidden="true">↓</span>
@@ -98,7 +98,9 @@ export const ExportPreview = ({ theme }: { theme: MaterialColorTheme }) => {
           tabIndex={0}
           aria-label={`${config.label} output`}
         >
-          <code>{content}</code>
+          <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+            {content}
+          </code>
         </pre>
       </div>
       <p
@@ -112,10 +114,19 @@ export const ExportPreview = ({ theme }: { theme: MaterialColorTheme }) => {
       <div className="mt-7 rounded-xl border border-(--md-sys-color-outline-variant) p-5.5 [&_code]:text-[11px] [&_code]:wrap-anywhere [&_h3]:mb-2.5 [&_h3]:text-[14px] [&_h3]:font-semibold [&_p]:text-[12px] [&_p]:leading-[1.9] [&_p]:text-(--md-sys-color-on-surface-variant)">
         <h3>Use it in your project</h3>
         <p>
-          Import the semantic CSS, then set <code>data-mode="dark"</code> on
+          Import the semantic CSS, then set{" "}
+          <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+            data-mode="dark"
+          </code>{" "}
+          on{" "}
           your root element for dark mode. Style components with{" "}
-          <code>var(--md-sys-color-primary)</code> and its paired foreground{" "}
-          <code>var(--md-sys-color-on-primary)</code>.
+          <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+            var(--md-sys-color-primary)
+          </code>{" "}
+          and its paired foreground{" "}
+          <code className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums">
+            var(--md-sys-color-on-primary)
+          </code>.
         </p>
       </div>
     </section>
