@@ -1,9 +1,9 @@
-import { lazy, Suspense, useLayoutEffect, useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useState } from "react";
 
 import { ExportPreview } from "@/components/export-preview";
 import { PalettePreview } from "@/components/palette-preview";
 import { SemanticPreview } from "@/components/semantic-preview";
-import { Skeleton } from "@/components/ui/skeleton";
+import { ShadcnWorkspace } from "@/components/shadcn/shadcn-workspace";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
   SOURCE_PRESETS,
@@ -18,12 +18,6 @@ import { applyMaterialScheme } from "@/utils/material-dom";
 import { createMaterialTheme } from "@/utils/material-theme";
 import { normalizeHexColor } from "@/utils/normalize-hex-color";
 import { createShadcnTheme } from "@/utils/shadcn-theme";
-
-const ShadcnWorkspace = lazy(() =>
-  import("@/components/shadcn/shadcn-workspace").then((module) => ({
-    default: module.ShadcnWorkspace,
-  })),
-);
 
 export const Home = () => {
   const [sourceColor, setSourceColor] = useState(
@@ -273,20 +267,12 @@ export const Home = () => {
             </ToggleGroup>
           </div>
           {target === "shadcn" ? (
-            <Suspense
-              fallback={
-                <div role="status" aria-label="Loading shadcn preview">
-                  <Skeleton className="h-80 w-full" />
-                </div>
-              }
-            >
-              <ShadcnWorkspace
-                theme={shadcnTheme}
-                mode={mode}
-                view={shadcnView}
-                onViewChange={setShadcnView}
-              />
-            </Suspense>
+            <ShadcnWorkspace
+              theme={shadcnTheme}
+              mode={mode}
+              view={shadcnView}
+              onViewChange={setShadcnView}
+            />
           ) : (
             <div data-material-workspace="">
               <div className="flex min-h-12.75 items-center justify-between gap-3 border-b border-b-(--md-sys-color-outline-variant) max-[580px]:min-h-10.5">
