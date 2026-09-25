@@ -6,7 +6,10 @@ import type {
 import { createShadcnDeclarations } from "@/utils/shadcn-css";
 
 /** Serializes one shadcn scheme into a CSS rule block. */
-const cssBlock = (selector: string, scheme: ShadcnColorScheme) =>
+const createShadcnCssRuleBlock = (
+  selector: string,
+  scheme: ShadcnColorScheme,
+) =>
   `${selector} {\n${createShadcnDeclarations(scheme)
     .map(([token, value]) => `  --${token}: ${value};`)
     .join("\n")}\n}`;
@@ -23,7 +26,10 @@ const cssBlock = (selector: string, scheme: ShadcnColorScheme) =>
  * ```
  */
 export const exportShadcnCss = (theme: ShadcnTheme): string => {
-  return `${cssBlock(":root", theme.light)}\n\n${cssBlock(".dark", theme.dark)}\n`;
+  return `${createShadcnCssRuleBlock(":root", theme.light)}\n\n${createShadcnCssRuleBlock(
+    ".dark",
+    theme.dark,
+  )}\n`;
 };
 
 /**

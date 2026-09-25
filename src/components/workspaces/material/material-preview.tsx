@@ -6,14 +6,20 @@ import {
   getMaterialRoleVariable,
 } from "@/utils/material-css";
 
-import type { MaterialColorRole } from "../types-and-consts/material-design";
-import type { MaterialColorScheme } from "../types-and-consts/material-design";
+import type { MaterialColorRole } from "../../../types-and-consts/material-design";
+import type { MaterialColorScheme } from "../../../types-and-consts/material-design";
 import {
-  ACCENT_PAIRS,
-  FIXED_PAIRS,
-  SURFACES,
-} from "../types-and-consts/material-design";
-import { MATERIAL_COLOR_ROLES } from "../types-and-consts/material-design";
+  MATERIAL_ACCENT_PAIRS,
+  MATERIAL_FIXED_PAIRS,
+  MATERIAL_SURFACE_ROLES,
+} from "../../../types-and-consts/material-design";
+import { MATERIAL_COLOR_ROLES } from "../../../types-and-consts/material-design";
+
+interface RolePairProps {
+  background: MaterialColorRole;
+  foreground: MaterialColorRole;
+  scheme: MaterialColorScheme;
+}
 
 const roleStyle = (
   background: MaterialColorRole,
@@ -25,15 +31,7 @@ const roleStyle = (
   };
 };
 
-const RolePair = ({
-  background,
-  foreground,
-  scheme,
-}: {
-  background: MaterialColorRole;
-  foreground: MaterialColorRole;
-  scheme: MaterialColorScheme;
-}) => {
+const RolePair = ({ background, foreground, scheme }: RolePairProps) => {
   if (scheme[background] === undefined || scheme[foreground] === undefined)
     return null;
   return (
@@ -63,11 +61,11 @@ const RolePair = ({
   );
 };
 
-export const SemanticPreview = ({
-  scheme,
-}: {
+interface MaterialPreviewProps {
   scheme: MaterialColorScheme;
-}) => {
+}
+
+export const MaterialPreview = ({ scheme }: MaterialPreviewProps) => {
   return (
     <div className="pt-6.75 [&_>_section+section]:mt-10">
       <section aria-labelledby="accent-heading">
@@ -81,20 +79,26 @@ export const SemanticPreview = ({
           <p>Backgrounds paired with their Material foregrounds.</p>
         </div>
         <div className="grid grid-cols-4 gap-2.5 max-[1150px]:grid-cols-2 max-[800px]:grid-cols-4 max-[580px]:grid-cols-2">
-          {ACCENT_PAIRS.map(([base, onBase, container, onContainer]) => (
-            <article
-              className="overflow-hidden rounded-xl"
-              key={base}
-              aria-label={`${base} role pairs`}
-            >
-              <RolePair background={base} foreground={onBase} scheme={scheme} />
-              <RolePair
-                background={container}
-                foreground={onContainer}
-                scheme={scheme}
-              />
-            </article>
-          ))}
+          {MATERIAL_ACCENT_PAIRS.map(
+            ([base, onBase, container, onContainer]) => (
+              <article
+                className="overflow-hidden rounded-xl"
+                key={base}
+                aria-label={`${base} role pairs`}
+              >
+                <RolePair
+                  background={base}
+                  foreground={onBase}
+                  scheme={scheme}
+                />
+                <RolePair
+                  background={container}
+                  foreground={onContainer}
+                  scheme={scheme}
+                />
+              </article>
+            ),
+          )}
         </div>
       </section>
 
@@ -109,7 +113,7 @@ export const SemanticPreview = ({
           <p>Each surface is a resolved color in its own right.</p>
         </div>
         <div className="grid grid-cols-4 overflow-hidden rounded-xl border border-(--md-sys-color-outline-variant) max-[580px]:grid-cols-2">
-          {SURFACES.map((role) => (
+          {MATERIAL_SURFACE_ROLES.map((role) => (
             <div
               key={role}
               className="flex min-h-30.5 flex-col gap-1.5 p-3.5 max-[580px]:min-h-27 [&_>_span:not(:first-child)]:text-[10px] [&_code]:text-[9px]"
@@ -213,7 +217,7 @@ export const SemanticPreview = ({
           <p>Fixed and fixed-dim, resolved by Material.</p>
         </div>
         <div className="grid grid-cols-3 gap-2.5 max-[580px]:grid-cols-1 max-[580px]:[&_article]:grid max-[580px]:[&_article]:grid-cols-2 [&_article>div>span]:mx-0 [&_article>div>span]:my-3.75 [&_article>div>span]:text-[28px]">
-          {FIXED_PAIRS.map(([base, onBase, dim, onDim]) => (
+          {MATERIAL_FIXED_PAIRS.map(([base, onBase, dim, onDim]) => (
             <article className="overflow-hidden rounded-xl" key={base}>
               <RolePair background={base} foreground={onBase} scheme={scheme} />
               <RolePair background={dim} foreground={onDim} scheme={scheme} />

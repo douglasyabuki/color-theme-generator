@@ -16,7 +16,11 @@ import {
 } from "@/types-and-consts/shadcn-exports";
 import type { ShadcnTheme } from "@/types-and-consts/shadcn-theme";
 
-export const ShadcnExport = ({ theme }: { theme: ShadcnTheme }) => {
+interface ShadcnExportProps {
+  theme: ShadcnTheme;
+}
+
+export const ShadcnExport = ({ theme }: ShadcnExportProps) => {
   const [format, setFormat] = useState<ShadcnExportFormat>("variables");
   const [feedback, setFeedback] = useState<ShadcnExportFeedback>();
   const config = SHADCN_EXPORTS[format];

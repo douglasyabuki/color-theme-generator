@@ -1,12 +1,12 @@
 import { formatArgbHex } from "@/lib/format-argb-hex";
 import {
   MATERIAL_COLOR_ROLES,
+  MATERIAL_PALETTE_NAMES,
+  MATERIAL_PALETTE_TONES,
   type MaterialColorRole,
   type MaterialColorScheme,
-  type MaterialPalettes,
-  PALETTE_NAMES,
-  PALETTE_TONES,
-  type PaletteName,
+  type MaterialPaletteMap,
+  type MaterialPaletteName,
 } from "@/types-and-consts/material-design";
 
 /**
@@ -20,7 +20,7 @@ import {
  * ```
  */
 export const formatMaterialTokenName = (
-  name: MaterialColorRole | PaletteName,
+  name: MaterialColorRole | MaterialPaletteName,
 ): string => {
   return name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
 };
@@ -78,10 +78,10 @@ export const createMaterialDeclarations = (
  * ```
  */
 export const createMaterialPaletteDeclarations = (
-  palettes: MaterialPalettes,
+  palettes: MaterialPaletteMap,
 ): [string, string][] => {
-  return PALETTE_NAMES.flatMap((name) =>
-    PALETTE_TONES.map(
+  return MATERIAL_PALETTE_NAMES.flatMap((name) =>
+    MATERIAL_PALETTE_TONES.map(
       (tone) =>
         [
           `--md-ref-palette-${formatMaterialTokenName(name)}-${tone}`,

@@ -8,13 +8,12 @@ import type { ShadcnColorScheme } from "@/types-and-consts/shadcn-theme";
 import type { ThemeMode } from "@/types-and-consts/theme-mode";
 import { describeShadcnTokenSource } from "@/utils/shadcn-token-source";
 
-export const ShadcnTokens = ({
-  scheme,
-  mode,
-}: {
+interface ShadcnTokensProps {
   scheme: ShadcnColorScheme;
   mode: ThemeMode;
-}) => {
+}
+
+export const ShadcnTokens = ({ scheme, mode }: ShadcnTokensProps) => {
   return (
     <div className="flex flex-col gap-6">
       <div>

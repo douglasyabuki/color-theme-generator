@@ -1,4 +1,4 @@
-import type { MaterialColorTheme } from "@/types-and-consts/material-design";
+import type { MaterialTheme } from "@/types-and-consts/material-design";
 import {
   SHADCN_CHART_SOURCES,
   type ShadcnChartColors,
@@ -19,7 +19,7 @@ import type { ThemeMode } from "@/types-and-consts/theme-mode";
  * ```
  */
 export const createShadcnChartColors = (
-  theme: MaterialColorTheme,
+  theme: MaterialTheme,
   mode: ThemeMode,
 ): ShadcnChartColors => {
   return Object.fromEntries(

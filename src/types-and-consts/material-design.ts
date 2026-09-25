@@ -65,13 +65,13 @@ export const MATERIAL_COLOR_ROLES = [
 ] as const;
 
 export type MaterialColorRole = (typeof MATERIAL_COLOR_ROLES)[number];
-export type OptionalMaterialColorRole =
+export type MaterialOptionalColorRole =
   "primaryDim" | "secondaryDim" | "tertiaryDim" | "errorDim";
 
 type RoleResolvers = {
   [Role in MaterialColorRole]: (
     colors: MaterialDynamicColors,
-  ) => Role extends OptionalMaterialColorRole
+  ) => Role extends MaterialOptionalColorRole
     ? DynamicColor | undefined
     : DynamicColor;
 };
@@ -136,12 +136,12 @@ export const MATERIAL_ROLE_RESOLVERS: RoleResolvers = {
 
 export type MaterialVariant = "tonal-spot";
 export type MaterialColorScheme = Record<
-  Exclude<MaterialColorRole, OptionalMaterialColorRole>,
+  Exclude<MaterialColorRole, MaterialOptionalColorRole>,
   number
 > &
-  Partial<Record<OptionalMaterialColorRole, number>>;
+  Partial<Record<MaterialOptionalColorRole, number>>;
 
-export const PALETTE_NAMES = [
+export const MATERIAL_PALETTE_NAMES = [
   "primary",
   "secondary",
   "tertiary",
@@ -150,16 +150,16 @@ export const PALETTE_NAMES = [
   "error",
 ] as const;
 
-export const PALETTE_TONES = [
+export const MATERIAL_PALETTE_TONES = [
   0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 99, 100,
 ] as const;
 
-export type PaletteName = (typeof PALETTE_NAMES)[number];
-export type MaterialPalettes = Record<
-  PaletteName,
+export type MaterialPaletteName = (typeof MATERIAL_PALETTE_NAMES)[number];
+export type MaterialPaletteMap = Record<
+  MaterialPaletteName,
   {
     keyColor: number;
-    tones: Record<(typeof PALETTE_TONES)[number], number>;
+    tones: Record<(typeof MATERIAL_PALETTE_TONES)[number], number>;
   }
 >;
 
@@ -169,10 +169,10 @@ export interface MaterialThemeOptions {
   contrastLevel: number;
 }
 
-export interface MaterialColorTheme {
+export interface MaterialTheme {
   light: MaterialColorScheme;
   dark: MaterialColorScheme;
-  palettes: Record<ThemeMode, MaterialPalettes>;
+  palettes: Record<ThemeMode, MaterialPaletteMap>;
   metadata: MaterialThemeOptions & {
     packageVersion: "0.4.0";
     specVersion: DynamicScheme["specVersion"];
@@ -180,14 +180,14 @@ export interface MaterialColorTheme {
   };
 }
 
-export const ACCENT_PAIRS = [
+export const MATERIAL_ACCENT_PAIRS = [
   ["primary", "onPrimary", "primaryContainer", "onPrimaryContainer"],
   ["secondary", "onSecondary", "secondaryContainer", "onSecondaryContainer"],
   ["tertiary", "onTertiary", "tertiaryContainer", "onTertiaryContainer"],
   ["error", "onError", "errorContainer", "onErrorContainer"],
 ] as const;
 
-export const FIXED_PAIRS = [
+export const MATERIAL_FIXED_PAIRS = [
   [
     "primaryFixed",
     "onPrimaryFixed",
@@ -208,7 +208,7 @@ export const FIXED_PAIRS = [
   ],
 ] as const;
 
-export const SURFACES = [
+export const MATERIAL_SURFACE_ROLES = [
   "surfaceDim",
   "surface",
   "surfaceBright",
@@ -219,7 +219,7 @@ export const SURFACES = [
   "surfaceContainerHighest",
 ] as const;
 
-export const DEFAULT_THEME_OPTIONS: Readonly<MaterialThemeOptions> = {
+export const DEFAULT_MATERIAL_THEME_OPTIONS: Readonly<MaterialThemeOptions> = {
   sourceColor: "#6750A4",
   variant: "tonal-spot",
   contrastLevel: 0,
@@ -230,7 +230,8 @@ type SchemeFactory = (
   isDark: boolean,
   contrast: number,
 ) => DynamicScheme;
-export const SCHEME_FACTORIES: Record<MaterialVariant, SchemeFactory> = {
-  "tonal-spot": (source, isDark, contrast) =>
-    new SchemeTonalSpot(source, isDark, contrast, "2025", "phone"),
-};
+export const MATERIAL_SCHEME_FACTORIES: Record<MaterialVariant, SchemeFactory> =
+  {
+    "tonal-spot": (source, isDark, contrast) =>
+      new SchemeTonalSpot(source, isDark, contrast, "2025", "phone"),
+  };

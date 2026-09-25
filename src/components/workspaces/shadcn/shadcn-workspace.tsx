@@ -11,17 +11,19 @@ import { ShadcnExport } from "./shadcn-export";
 import { ShadcnPreview } from "./shadcn-preview";
 import { ShadcnTokens } from "./shadcn-tokens";
 
+interface ShadcnWorkspaceProps {
+  theme: ShadcnTheme;
+  mode: ThemeMode;
+  view: ShadcnView;
+  onViewChange: (view: ShadcnView) => void;
+}
+
 export const ShadcnWorkspace = ({
   theme,
   mode,
   view,
   onViewChange,
-}: {
-  theme: ShadcnTheme;
-  mode: ThemeMode;
-  view: ShadcnView;
-  onViewChange: (view: ShadcnView) => void;
-}) => {
+}: ShadcnWorkspaceProps) => {
   const root = useRef<HTMLDivElement>(null);
   const [portalContainer, setPortalContainer] = useState<HTMLDivElement | null>(
     null,

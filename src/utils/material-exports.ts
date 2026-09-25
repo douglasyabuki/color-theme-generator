@@ -1,4 +1,4 @@
-import type { MaterialColorTheme } from "@/types-and-consts/material-design";
+import type { MaterialTheme } from "@/types-and-consts/material-design";
 
 import {
   createMaterialDeclarations,
@@ -6,12 +6,15 @@ import {
 } from "./material-css";
 
 /** Serializes declarations into a CSS rule block. */
-const cssBlock = (selector: string, entries: [string, string][]): string => {
+const createCssRuleBlock = (
+  selector: string,
+  entries: [string, string][],
+): string => {
   return `${selector} {\n${entries.map(([name, value]) => `  ${name}: ${value};`).join("\n")}\n}`;
 };
 
 /** Creates the metadata comment shared by Material CSS exports. */
-const header = (theme: MaterialColorTheme): string => {
+const createMaterialExportHeader = (theme: MaterialTheme): string => {
   const {
     sourceColor,
     variant,
@@ -34,12 +37,15 @@ const header = (theme: MaterialColorTheme): string => {
  * css.includes('[data-mode="dark"]'); // true
  * ```
  */
-export const exportMaterialCss = (theme: MaterialColorTheme): string => {
+export const exportMaterialCss = (theme: MaterialTheme): string => {
   return (
-    header(theme) +
-    cssBlock(":root", createMaterialDeclarations(theme.light)) +
+    createMaterialExportHeader(theme) +
+    createCssRuleBlock(":root", createMaterialDeclarations(theme.light)) +
     "\n\n" +
-    cssBlock('[data-mode="dark"]', createMaterialDeclarations(theme.dark)) +
+    createCssRuleBlock(
+      '[data-mode="dark"]',
+      createMaterialDeclarations(theme.dark),
+    ) +
     "\n"
   );
 };
@@ -55,12 +61,15 @@ export const exportMaterialCss = (theme: MaterialColorTheme): string => {
  * css.includes("--md-ref-palette-primary-40"); // true
  * ```
  */
-export const exportMaterialPalettes = (theme: MaterialColorTheme): string => {
+export const exportMaterialPalettes = (theme: MaterialTheme): string => {
   return (
-    header(theme) +
-    cssBlock(":root", createMaterialPaletteDeclarations(theme.palettes.light)) +
+    createMaterialExportHeader(theme) +
+    createCssRuleBlock(
+      ":root",
+      createMaterialPaletteDeclarations(theme.palettes.light),
+    ) +
     "\n\n" +
-    cssBlock(
+    createCssRuleBlock(
       '[data-mode="dark"]',
       createMaterialPaletteDeclarations(theme.palettes.dark),
     ) +
@@ -79,6 +88,6 @@ export const exportMaterialPalettes = (theme: MaterialColorTheme): string => {
  * JSON.parse(json).metadata.sourceColor; // "#6750A4"
  * ```
  */
-export const exportMaterialJson = (theme: MaterialColorTheme): string => {
+export const exportMaterialJson = (theme: MaterialTheme): string => {
   return JSON.stringify(theme, null, 2) + "\n";
 };

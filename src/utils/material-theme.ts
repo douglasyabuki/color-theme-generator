@@ -3,18 +3,18 @@ import { argbFromHex, Hct } from "@material/material-color-utilities";
 
 import type {
   MaterialColorScheme,
-  MaterialColorTheme,
-  MaterialPalettes,
+  MaterialPaletteMap,
+  MaterialTheme,
   MaterialThemeOptions,
 } from "@/types-and-consts/material-design";
-import { SCHEME_FACTORIES } from "@/types-and-consts/material-design";
+import { MATERIAL_SCHEME_FACTORIES } from "@/types-and-consts/material-design";
 import {
   MATERIAL_COLOR_ROLES,
   MATERIAL_ROLE_RESOLVERS,
 } from "@/types-and-consts/material-design";
 import {
-  PALETTE_NAMES,
-  PALETTE_TONES,
+  MATERIAL_PALETTE_NAMES,
+  MATERIAL_PALETTE_TONES,
 } from "@/types-and-consts/material-design";
 import { normalizeHexColor } from "@/utils/normalize-hex-color";
 
@@ -29,7 +29,7 @@ const resolveScheme = (scheme: DynamicScheme): MaterialColorScheme => {
 };
 
 /** Copies palette key colors and configured tones into the serializable model. */
-const resolvePalettes = (scheme: DynamicScheme): MaterialPalettes => {
+const resolvePalettes = (scheme: DynamicScheme): MaterialPaletteMap => {
   const palettes = {
     primary: scheme.primaryPalette,
     secondary: scheme.secondaryPalette,
@@ -47,16 +47,19 @@ const resolvePalettes = (scheme: DynamicScheme): MaterialPalettes => {
     error: scheme.errorPaletteKeyColor,
   };
   return Object.fromEntries(
-    PALETTE_NAMES.map((name) => [
+    MATERIAL_PALETTE_NAMES.map((name) => [
       name,
       {
         keyColor: keyColors[name],
         tones: Object.fromEntries(
-          PALETTE_TONES.map((tone) => [tone, palettes[name].tone(tone)]),
+          MATERIAL_PALETTE_TONES.map((tone) => [
+            tone,
+            palettes[name].tone(tone),
+          ]),
         ),
       },
     ]),
-  ) as MaterialPalettes;
+  ) as MaterialPaletteMap;
 };
 
 /**
@@ -78,7 +81,7 @@ const resolvePalettes = (scheme: DynamicScheme): MaterialPalettes => {
  */
 export const createMaterialTheme = (
   options: MaterialThemeOptions,
-): MaterialColorTheme => {
+): MaterialTheme => {
   const sourceColor = normalizeHexColor(options.sourceColor);
   if (!sourceColor)
     throw new TypeError("Enter an opaque 3- or 6-digit hex color.");
@@ -89,10 +92,10 @@ export const createMaterialTheme = (
   ) {
     throw new RangeError("Contrast must be between -1 and 1.");
   }
-  if (!Object.hasOwn(SCHEME_FACTORIES, options.variant)) {
+  if (!Object.hasOwn(MATERIAL_SCHEME_FACTORIES, options.variant)) {
     throw new TypeError("Unsupported Material variant.");
   }
-  const factory = SCHEME_FACTORIES[options.variant];
+  const factory = MATERIAL_SCHEME_FACTORIES[options.variant];
   const source = Hct.fromInt(argbFromHex(sourceColor));
   const light = factory(source, false, options.contrastLevel);
   const dark = factory(source, true, options.contrastLevel);

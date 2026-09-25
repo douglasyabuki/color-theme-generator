@@ -46,11 +46,11 @@ import {
   SHADCN_TOKEN_MANIFEST,
 } from "@/types-and-consts/shadcn-manifest";
 
-export const ShadcnPreview = ({
-  portalContainer,
-}: {
+interface ShadcnPreviewProps {
   portalContainer: HTMLElement | null;
-}) => {
+}
+
+export const ShadcnPreview = ({ portalContainer }: ShadcnPreviewProps) => {
   const [activeItem, setActiveItem] = useState("Overview");
   const [feedback, setFeedback] = useState(
     "Try an action, focus the input, or open the menu.",

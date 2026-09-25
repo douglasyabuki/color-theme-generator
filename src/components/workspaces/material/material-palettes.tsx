@@ -1,20 +1,19 @@
 import { formatArgbHex } from "@/lib/format-argb-hex";
 import { formatMaterialTokenName } from "@/utils/material-css";
 
-import type { MaterialPalettes } from "../types-and-consts/material-design";
+import type { MaterialPaletteMap } from "../../../types-and-consts/material-design";
 import {
-  PALETTE_NAMES,
-  PALETTE_TONES,
-} from "../types-and-consts/material-design";
-import type { ThemeMode } from "../types-and-consts/theme-mode";
+  MATERIAL_PALETTE_NAMES,
+  MATERIAL_PALETTE_TONES,
+} from "../../../types-and-consts/material-design";
+import type { ThemeMode } from "../../../types-and-consts/theme-mode";
 
-export const PalettePreview = ({
-  palettes,
-  mode,
-}: {
-  palettes: MaterialPalettes;
+interface MaterialPalettesProps {
+  palettes: MaterialPaletteMap;
   mode: ThemeMode;
-}) => {
+}
+
+export const MaterialPalettes = ({ palettes, mode }: MaterialPalettesProps) => {
   return (
     <section
       className="pt-6.75 [&_>_section+section]:mt-10"
@@ -30,7 +29,7 @@ export const PalettePreview = ({
         <p>HCT reference colors. Use semantic roles to style components.</p>
       </div>
       <div className="flex flex-col gap-5">
-        {PALETTE_NAMES.map((name) => (
+        {MATERIAL_PALETTE_NAMES.map((name) => (
           <article
             className="rounded-xl border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container-low) p-4.75 max-[580px]:p-4"
             key={name}
@@ -49,7 +48,7 @@ export const PalettePreview = ({
               </span>
             </div>
             <div className="grid grid-cols-13 gap-1.25 max-[1150px]:grid-cols-7 max-[1150px]:gap-x-1.5 max-[1150px]:gap-y-3 max-[580px]:grid-cols-4">
-              {PALETTE_TONES.map((tone) => (
+              {MATERIAL_PALETTE_TONES.map((tone) => (
                 <div
                   className="min-w-0 text-center [&_>_span]:mb-1.25 [&_>_span]:block [&_>_span]:text-[10px] [&_code]:block [&_code]:text-[8px] [&_code]:text-(--md-sys-color-on-surface-variant) max-[580px]:[&_code]:text-[9px] min-[1450px]:[&_code]:text-[9px]"
                   key={tone}

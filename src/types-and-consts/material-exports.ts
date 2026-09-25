@@ -4,7 +4,7 @@ import {
   exportMaterialPalettes,
 } from "@/utils/material-exports";
 
-export const EXPORT_TARGETS = {
+export const MATERIAL_EXPORTS = {
   semantic: {
     label: "Semantic CSS",
     filename: "material-theme.css",
@@ -28,3 +28,7 @@ export const EXPORT_TARGETS = {
       "The complete theme, with canonical ARGB colors and generation metadata.",
   },
 } as const;
+
+export type MaterialExportFormat = keyof typeof MATERIAL_EXPORTS;
+
+export type MaterialExportFeedback = { content: string; text: string };

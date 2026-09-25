@@ -1,6 +1,6 @@
 import type {
   MaterialColorRole,
-  OptionalMaterialColorRole,
+  MaterialOptionalColorRole,
 } from "@/types-and-consts/material-design";
 
 import type { ShadcnChartToken } from "./shadcn-chart-colors";
@@ -8,7 +8,7 @@ import type { ShadcnChartToken } from "./shadcn-chart-colors";
 type TokenDefinition = {
   group: string;
 } & (
-  | { role: Exclude<MaterialColorRole, OptionalMaterialColorRole> }
+  | { role: Exclude<MaterialColorRole, MaterialOptionalColorRole> }
   | { chart: ShadcnChartToken }
 );
 

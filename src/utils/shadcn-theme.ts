@@ -1,4 +1,4 @@
-import type { MaterialColorTheme } from "@/types-and-consts/material-design";
+import type { MaterialTheme } from "@/types-and-consts/material-design";
 import {
   SHADCN_COLOR_TOKENS,
   SHADCN_TOKEN_MANIFEST,
@@ -22,7 +22,7 @@ import { createShadcnChartColors } from "@/utils/shadcn-chart-colors";
  * ```
  */
 export const createShadcnTheme = (
-  materialTheme: MaterialColorTheme,
+  materialTheme: MaterialTheme,
 ): ShadcnTheme => {
   /** Builds the shadcn token map for one theme mode. */
   const createScheme = (mode: ThemeMode): ShadcnColorScheme => {
