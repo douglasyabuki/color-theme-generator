@@ -17,13 +17,9 @@ export const Header = () => {
         Chroma
         <span className="mx-1.25 my-0 h-5.25 w-px bg-(--md-sys-color-outline-variant) max-[580px]:hidden" />
         <span className="text-[12px] font-normal tracking-normal text-(--md-sys-color-on-surface-variant) max-[580px]:hidden">
-          Material color studio
+          Semantic color theme generator
         </span>
       </a>
-      <span className="flex items-center gap-2 rounded-[30px] border border-(--md-sys-color-outline-variant) px-3 py-1.75 text-[11px]">
-        <span className="h-1.5 w-1.5 rounded-full bg-(--md-sys-color-primary)" />
-        Material 3
-      </span>
     </header>
   );
 };

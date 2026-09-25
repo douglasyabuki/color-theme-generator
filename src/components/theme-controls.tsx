@@ -36,12 +36,12 @@ export const ThemeControls = ({
     aria-label="Theme controls"
   >
     <div className="flex items-center justify-between gap-2 pb-6.5 max-[800px]:col-span-full max-[800px]:pb-5 [&_h2]:text-[16px] [&_h2]:font-semibold [&_h2]:tracking-[-0.5px]">
-      <h2>Your theme</h2>
+      <h2>Theme settings</h2>
       <button
         className="flex cursor-pointer items-center gap-1.5 border-0 bg-transparent pt-1.5 pr-0 pb-1.5 pl-2 text-[11px] text-(--md-sys-color-primary) transition-[background-color,color,border-color] duration-150 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-(--md-sys-color-primary) [&:hover]:underline"
         onClick={onReset}
       >
-        Reset <span aria-hidden="true">↺</span>
+        Reset theme <span aria-hidden="true">↺</span>
       </button>
     </div>
     <div className="mb-6.25 max-[800px]:mb-2.5 max-[580px]:mb-5.5 max-[580px]:nth-of-type-2:col-span-full [&_label]:mb-2.5 [&_label]:block [&_label]:text-[12px] [&_label]:font-semibold">
@@ -81,7 +81,7 @@ export const ThemeControls = ({
       >
         {invalidSource
           ? "Enter a 3- or 6-digit hex color. Showing your last valid theme."
-          : "A starting point, not a fixed primary color."}
+          : "Material uses this color to generate the full theme. The final primary may differ."}
       </p>
       <div
         className="mt-3 grid grid-cols-[repeat(8,1fr)] gap-0.5 max-[580px]:grid-cols-[repeat(8,minmax(0,25px))] max-[580px]:gap-1.5"
@@ -103,7 +103,7 @@ export const ThemeControls = ({
     </div>
     <div className="mb-6.25 max-[800px]:mb-2.5 max-[580px]:mb-5.5 max-[580px]:nth-of-type-2:col-span-full [&_label]:mb-2.5 [&_label]:block [&_label]:text-[12px] [&_label]:font-semibold">
       <span className="mb-2.5 block text-[12px] font-semibold" id="mode-label">
-        Appearance
+        Preview mode
       </span>
       <div
         className="flex gap-1 rounded-[9px] border border-(--md-sys-color-outline-variant) p-1 [&_button]:w-[50%] [&_button]:rounded-md [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-1 [&_button]:py-2 [&_button]:text-[12px] [&_button]:text-(--md-sys-color-on-surface-variant) [&_button_span]:mr-1 [&_button[aria-pressed=true]]:bg-(--md-sys-color-secondary-container) [&_button[aria-pressed=true]]:text-(--md-sys-color-on-secondary-container)"
@@ -128,7 +128,7 @@ export const ThemeControls = ({
     </div>
     <div className="mb-6.25 max-[800px]:mb-2.5 max-[580px]:mb-5.5 max-[580px]:nth-of-type-2:col-span-full [&_label]:mb-2.5 [&_label]:block [&_label]:text-[12px] [&_label]:font-semibold">
       <div className="flex items-baseline justify-between [&_output]:rounded-sm [&_output]:bg-(--md-sys-color-surface-container-high) [&_output]:px-1.5 [&_output]:py-0.5 [&_output]:text-[11px]">
-        <label htmlFor="contrast">Contrast</label>
+        <label htmlFor="contrast">Material contrast</label>
         <output
           className="font-[Cascadia_Code,SFMono-Regular,Consolas,monospace] tabular-nums"
           htmlFor="contrast"
@@ -147,18 +147,18 @@ export const ThemeControls = ({
         onChange={(event) => onContrastChange(Number(event.target.value))}
       />
       <div className="flex justify-between text-[10px] text-(--md-sys-color-on-surface-variant)">
-        <span>Less</span>
-        <span>Default</span>
-        <span>More</span>
+        <span>Low</span>
+        <span>Standard</span>
+        <span>High</span>
       </div>
       <p className="mt-2.25 text-[11px] leading-[1.6] text-(--md-sys-color-on-surface-variant)">
-        Recomputes Material foregrounds and backgrounds together.
+        Adjusts contrast across the generated semantic roles.
       </p>
     </div>
-    <div className="border-t border-t-(--md-sys-color-outline-variant) pt-5 max-[800px]:col-span-full max-[800px]:mt-2.5 max-[800px]:pt-3.5 max-[580px]:mt-0 max-[800px]:[&_dl]:m-0 max-[800px]:[&_dl]:flex max-[800px]:[&_dl]:flex-wrap max-[800px]:[&_dl]:gap-x-6.5 max-[800px]:[&_dl]:gap-y-2.5 max-[580px]:[&_dl]:grid max-[580px]:[&_dl]:grid-cols-2 max-[580px]:[&_dl]:gap-x-5 max-[580px]:[&_dl]:gap-y-0 max-[800px]:[&_dl_>_div]:gap-2 max-[580px]:[&_dl_>_div]:justify-between [&>span:first-child]:text-[9px] [&>span:first-child]:tracking-[1.1px] [&>span:first-child]:text-(--md-sys-color-on-surface-variant) max-[800px]:[&>span:first-child]:hidden">
-      <span className="text-[10px] font-[650] tracking-[1.8px] uppercase">
-        Generation settings
-      </span>
+    <details className="border-t border-(--md-sys-color-outline-variant) pt-5 max-[800px]:col-span-full">
+      <summary className="cursor-pointer text-[11px] font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--md-sys-color-primary)">
+        Generation details
+      </summary>
       <dl className="mt-3.75">
         <div className="mt-2.75 flex justify-between gap-2.5 text-[11px]">
           <dt className="text-(--md-sys-color-on-surface-variant)">Variant</dt>
@@ -181,11 +181,9 @@ export const ThemeControls = ({
           <dd className="font-semibold">MCU {theme.metadata.packageVersion}</dd>
         </div>
       </dl>
-    </div>
+    </details>
     <p className="mt-6.25 text-[10px] leading-[1.7] text-(--md-sys-color-on-surface-variant) max-[800px]:hidden">
-      One source. Two independent schemes.
-      <br />
-      Every role resolved by Material.
+      Light and dark schemes are generated independently.
     </p>
   </aside>
 );

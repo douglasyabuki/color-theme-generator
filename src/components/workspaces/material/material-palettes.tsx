@@ -28,6 +28,10 @@ export const MaterialPalettes = ({ palettes, mode }: MaterialPalettesProps) => {
         </div>
         <p>HCT reference colors. Use semantic roles to style components.</p>
       </div>
+      <p className="mb-5 text-[11px] leading-[1.6] text-(--md-sys-color-on-surface-variant)">
+        A key color represents the hue and chroma of a palette; its tones vary
+        in lightness.
+      </p>
       <div className="flex flex-col gap-5">
         {MATERIAL_PALETTE_NAMES.map((name) => (
           <article
@@ -70,8 +74,8 @@ export const MaterialPalettes = ({ palettes, mode }: MaterialPalettesProps) => {
         ))}
       </div>
       <p className="mt-5.5 text-[11px] leading-[1.6] text-(--md-sys-color-on-surface-variant)">
-        Light and dark palettes are stored separately, including when individual
-        tones match.
+        Material may generate different reference palettes for light and dark
+        schemes.
       </p>
     </section>
   );

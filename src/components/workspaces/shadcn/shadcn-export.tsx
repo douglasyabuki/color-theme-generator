@@ -52,9 +52,9 @@ export const ShadcnExport = ({ theme }: ShadcnExportProps) => {
   return (
     <div className="flex min-w-0 flex-col gap-5">
       <div>
-        <h2 className="text-xl font-semibold">Take your colors with you</h2>
+        <h2 className="text-xl font-semibold">Export shadcn theme</h2>
         <p className="text-muted-foreground mt-2 text-sm">
-          Every export includes light and dark, independent of the preview mode.
+          Every export includes both light and dark colors.
         </p>
       </div>
       <ToggleGroup
@@ -96,9 +96,7 @@ export const ShadcnExport = ({ theme }: ShadcnExportProps) => {
         </CardContent>
       </Card>
       <p role="status" className="text-muted-foreground text-sm">
-        {feedback?.content === content
-          ? feedback.text
-          : "Both light and dark schemes are included."}
+        {feedback?.content === content ? feedback.text : ""}
       </p>
       <p className="text-muted-foreground text-sm leading-relaxed">
         Use <code>.dark</code> on your application's root to select dark colors.

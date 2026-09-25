@@ -31,16 +31,13 @@ export const MaterialWorkspace = ({
         className="flex gap-6 self-stretch max-[1150px]:gap-4.5 max-[580px]:w-full max-[580px]:justify-between max-[580px]:gap-3 [&_button]:relative [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-0 [&_button]:pt-1 [&_button]:pb-4 [&_button]:text-[12px] [&_button]:whitespace-nowrap [&_button]:text-(--md-sys-color-on-surface-variant) max-[580px]:[&_button]:text-[11px] [&_button[aria-pressed=true]]:font-[650] [&_button[aria-pressed=true]]:text-(--md-sys-color-primary) [&_button[aria-pressed=true]::after]:absolute [&_button[aria-pressed=true]::after]:right-0 [&_button[aria-pressed=true]::after]:-bottom-px [&_button[aria-pressed=true]::after]:left-0 [&_button[aria-pressed=true]::after]:h-0.5 [&_button[aria-pressed=true]::after]:bg-(--md-sys-color-primary) [&_button[aria-pressed=true]::after]:content-['']"
         aria-label="Theme views"
       >
-        {MATERIAL_VIEWS.map((name, index) => (
+        {MATERIAL_VIEWS.map((name) => (
           <button
             className="cursor-pointer transition-[background-color,color,border-color] duration-150 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-(--md-sys-color-primary)"
             key={name}
             aria-pressed={view === name}
             onClick={() => onViewChange(name)}
           >
-            <span className="mr-1.5 text-[9px] max-[580px]:hidden">
-              0{index + 1}
-            </span>
             {name}
           </button>
         ))}

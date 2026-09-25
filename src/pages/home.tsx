@@ -64,7 +64,7 @@ export const Home = () => {
       >
         <div>
           <p className="text-[10px] font-[650] tracking-[1.8px] uppercase">
-            From a single color to a whole system
+            Semantic color themes from one source
           </p>
           <h1
             className="m-0 text-[clamp(38px,4.25vw,62px)] leading-[1.08] font-medium tracking-[-2.7px] max-[800px]:text-[43px] max-[800px]:tracking-[-2px] max-[580px]:text-[39px] [&_>_span]:text-(--md-sys-color-primary)"
@@ -72,12 +72,13 @@ export const Home = () => {
           >
             One color.
             <br />
-            <span>Endless possibilities.</span>
+            <span>A complete theme.</span>
           </h1>
           <p className="mt-5.5 text-[13px] leading-[1.8] text-(--md-sys-color-on-surface-variant) max-[580px]:text-[12px]">
-            Explore the relationships that make a theme.
+            Choose a source color. Generate coherent light and dark themes.
             <br />
-            Material 3 and shadcn colors, powered by Material Color Utilities.
+            Inspect Material colors or adapted shadcn tokens, then export what
+            your project needs.
           </p>
         </div>
         <div
@@ -90,7 +91,6 @@ export const Home = () => {
             <div className="h-20 w-20 rounded-[50%_10%_50%_50%] bg-(--md-sys-color-tertiary) max-[800px]:h-12.75 max-[800px]:w-12.75" />
             <div className="h-20 w-20 rounded-[10%_50%_50%_50%] bg-(--md-sys-color-primary-container) max-[800px]:h-12.75 max-[800px]:w-12.75" />
           </div>
-          <span>HCT → your color system</span>
         </div>
       </section>
       <div className="grid grid-cols-[250px_minmax(0,1fr)] items-start gap-9 max-[1150px]:grid-cols-[224px_minmax(0,1fr)] max-[1150px]:gap-6 max-[800px]:grid-cols-1 min-[1450px]:grid-cols-[270px_minmax(0,1fr)] min-[1450px]:gap-10.5">
@@ -110,7 +110,7 @@ export const Home = () => {
         <div className="min-w-0 scroll-mt-5" id="workspace" tabIndex={-1}>
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <span className="text-sm font-medium" id="target-label">
-              Theme target
+              Use with
             </span>
             <ToggleGroup
               aria-labelledby="target-label"

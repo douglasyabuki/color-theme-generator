@@ -41,10 +41,14 @@ import {
   SidebarProvider,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
-import {
-  SHADCN_COLOR_TOKENS,
-  SHADCN_TOKEN_MANIFEST,
-} from "@/types-and-consts/shadcn-manifest";
+
+const weeklyActivity = [
+  { day: "Mon", tasks: 18, token: "chart-1" },
+  { day: "Tue", tasks: 25, token: "chart-2" },
+  { day: "Wed", tasks: 21, token: "chart-3" },
+  { day: "Thu", tasks: 32, token: "chart-4" },
+  { day: "Fri", tasks: 28, token: "chart-5" },
+] as const;
 
 interface ShadcnPreviewProps {
   portalContainer: HTMLElement | null;
@@ -52,16 +56,14 @@ interface ShadcnPreviewProps {
 
 export const ShadcnPreview = ({ portalContainer }: ShadcnPreviewProps) => {
   const [activeItem, setActiveItem] = useState("Overview");
-  const [feedback, setFeedback] = useState(
-    "Try an action, focus the input, or open the menu.",
-  );
+  const [feedback, setFeedback] = useState("");
   return (
     <div className="flex flex-col gap-6">
       <div>
         <h2 className="text-xl font-semibold">Your colors, in context</h2>
         <p className="text-muted-foreground mt-2 text-sm">
-          Colors use standard shadcn theme tokens. Preview styling is
-          illustrative.
+          The same generated theme, mapped to standard shadcn color tokens.
+          Preview styling is illustrative.
         </p>
       </div>
       <SidebarProvider
@@ -106,8 +108,9 @@ export const ShadcnPreview = ({ portalContainer }: ShadcnPreviewProps) => {
               </SidebarGroupContent>
             </SidebarGroup>
             <div className="bg-sidebar-primary text-sidebar-primary-foreground m-2 rounded-md p-3 text-sm">
-              One source.
-              <br />A shared palette.
+              Design together.
+              <br />
+              Build something great.
             </div>
           </SidebarContent>
         </Sidebar>
@@ -118,7 +121,7 @@ export const ShadcnPreview = ({ portalContainer }: ShadcnPreviewProps) => {
               <Badge variant="secondary">Draft</Badge>
             </div>
             <CardDescription>
-              Surfaces, actions, and content from the same theme.
+              Plan your next release and keep your team in sync.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -130,16 +133,16 @@ export const ShadcnPreview = ({ portalContainer }: ShadcnPreviewProps) => {
                 <Input
                   id="preview-project-name"
                   type="text"
-                  defaultValue="A new perspective"
+                  defaultValue="Website refresh"
                   aria-describedby="preview-project-help"
                 />
                 <FieldDescription id="preview-project-help">
-                  Focus this field to inspect the input border and focus ring.
+                  Choose a name your team will recognize.
                 </FieldDescription>
               </Field>
             </FieldGroup>
             <div className="bg-muted text-muted-foreground rounded-md p-4 text-sm">
-              Muted content supports the main story without competing with it.
+              Your project is private until you invite your team.
             </div>
             <Separator />
             <div className="flex flex-wrap gap-2">
@@ -215,7 +218,7 @@ export const ShadcnPreview = ({ portalContainer }: ShadcnPreviewProps) => {
               </DropdownMenuContent>
             </DropdownMenu>
             <span className="text-muted-foreground text-xs">
-              Hover or use arrow keys to see accent states.
+              Example project. All changes stay in this preview.
             </span>
           </CardFooter>
         </Card>
@@ -228,21 +231,73 @@ export const ShadcnPreview = ({ portalContainer }: ShadcnPreviewProps) => {
         className="flex flex-col gap-3"
       >
         <h3 id="chart-colors-heading" className="text-sm font-medium">
-          Chart colors
+          Team activity
         </h3>
-        <div className="grid grid-cols-5 gap-2">
-          {SHADCN_COLOR_TOKENS.filter(
-            (token) => SHADCN_TOKEN_MANIFEST[token].group === "Charts",
-          ).map((token) => (
-            <div key={token} className="flex min-w-0 flex-col gap-2">
-              <div
-                className="border-border h-16 rounded-md border"
-                style={{ backgroundColor: `var(--${token})` }}
+        <p className="text-muted-foreground text-sm">
+          Tasks completed this week. Example data.
+        </p>
+        <svg
+          viewBox="0 0 500 220"
+          role="img"
+          aria-labelledby="activity-title activity-description"
+          className="w-full"
+        >
+          <title id="activity-title">Tasks completed by day</title>
+          <desc id="activity-description">
+            Monday 18, Tuesday 25, Wednesday 21, Thursday 32, Friday 28. Bars
+            use the five generated chart colors.
+          </desc>
+          {[0, 10, 20, 30, 40].map((value) => (
+            <g key={value}>
+              <line
+                x1="40"
+                x2="490"
+                y1={180 - value * 4}
+                y2={180 - value * 4}
+                stroke="var(--border)"
               />
-              <span className="text-muted-foreground text-xs">{token}</span>
-            </div>
+              <text
+                x="28"
+                y={184 - value * 4}
+                textAnchor="end"
+                fill="var(--muted-foreground)"
+                fontSize="11"
+              >
+                {value}
+              </text>
+            </g>
           ))}
-        </div>
+          {weeklyActivity.map(({ day, tasks, token }, index) => (
+            <g key={day}>
+              <rect
+                x={58 + index * 88}
+                y={180 - tasks * 4}
+                width="52"
+                height={tasks * 4}
+                rx="4"
+                fill={`var(--${token})`}
+              />
+              <text
+                x={84 + index * 88}
+                y={172 - tasks * 4}
+                textAnchor="middle"
+                fill="var(--foreground)"
+                fontSize="12"
+              >
+                {tasks}
+              </text>
+              <text
+                x={84 + index * 88}
+                y="204"
+                textAnchor="middle"
+                fill="var(--muted-foreground)"
+                fontSize="12"
+              >
+                {day}
+              </text>
+            </g>
+          ))}
+        </svg>
       </section>
     </div>
   );

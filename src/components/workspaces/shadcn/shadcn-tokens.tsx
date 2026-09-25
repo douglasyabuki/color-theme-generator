@@ -17,11 +17,10 @@ export const ShadcnTokens = ({ scheme, mode }: ShadcnTokensProps) => {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h2 className="text-xl font-semibold">shadcn token audit</h2>
+        <h2 className="text-xl font-semibold">shadcn tokens</h2>
         <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-          shadcn uses a smaller semantic color system than Material. These
-          values are derived from the generated Material theme and mapped to the
-          roles expected by standard shadcn components.
+          Chroma maps the generated Material theme to the semantic color tokens
+          shadcn components expect.
         </p>
       </div>
       {SHADCN_TOKEN_GROUPS.map((group) => (

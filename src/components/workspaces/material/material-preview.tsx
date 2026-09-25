@@ -72,9 +72,9 @@ export const MaterialPreview = ({ scheme }: MaterialPreviewProps) => {
         <div className="mb-4.75 flex items-end justify-between gap-5.5 max-[1150px]:block [&_>_p]:max-w-60 [&_>_p]:text-right [&_>_p]:text-[11px] [&_>_p]:leading-[1.6] [&_>_p]:text-(--md-sys-color-on-surface-variant) max-[1150px]:[&_>_p]:mt-2 max-[1150px]:[&_>_p]:max-w-none max-[1150px]:[&_>_p]:text-left [&_h2]:text-[22px] [&_h2]:leading-tight [&_h2]:font-medium [&_h2]:tracking-[-0.6px] [&>div>p:first-child]:mb-1.75 [&>div>p:first-child]:text-[9px] [&>div>p:first-child]:tracking-[1.4px] [&>div>p:first-child]:text-(--md-sys-color-on-surface-variant)">
           <div>
             <p className="text-[10px] font-[650] tracking-[1.8px] uppercase">
-              01 / Accent colors
+              Material / Accents
             </p>
-            <h2 id="accent-heading">Color with a purpose.</h2>
+            <h2 id="accent-heading">Accent roles</h2>
           </div>
           <p>Backgrounds paired with their Material foregrounds.</p>
         </div>
@@ -106,11 +106,13 @@ export const MaterialPreview = ({ scheme }: MaterialPreviewProps) => {
         <div className="mb-4.75 flex items-end justify-between gap-5.5 max-[1150px]:block [&_>_p]:max-w-60 [&_>_p]:text-right [&_>_p]:text-[11px] [&_>_p]:leading-[1.6] [&_>_p]:text-(--md-sys-color-on-surface-variant) max-[1150px]:[&_>_p]:mt-2 max-[1150px]:[&_>_p]:max-w-none max-[1150px]:[&_>_p]:text-left [&_h2]:text-[22px] [&_h2]:leading-tight [&_h2]:font-medium [&_h2]:tracking-[-0.6px] [&>div>p:first-child]:mb-1.75 [&>div>p:first-child]:text-[9px] [&>div>p:first-child]:tracking-[1.4px] [&>div>p:first-child]:text-(--md-sys-color-on-surface-variant)">
           <div>
             <p className="text-[10px] font-[650] tracking-[1.8px] uppercase">
-              02 / Surfaces
+              Material / Surfaces
             </p>
-            <h2 id="surface-heading">A little depth. No overlays.</h2>
+            <h2 id="surface-heading">Surface hierarchy</h2>
           </div>
-          <p>Each surface is a resolved color in its own right.</p>
+          <p>
+            Material uses resolved surface colors to create visual hierarchy.
+          </p>
         </div>
         <div className="grid grid-cols-4 overflow-hidden rounded-xl border border-(--md-sys-color-outline-variant) max-[580px]:grid-cols-2">
           {MATERIAL_SURFACE_ROLES.map((role) => (
@@ -140,7 +142,7 @@ export const MaterialPreview = ({ scheme }: MaterialPreviewProps) => {
               ✳
             </div>
             <p className="text-[10px] font-[650] tracking-[1.8px] uppercase">
-              A theme in use
+              Example component
             </p>
             <h3>Room for a new idea.</h3>
             <p className="mt-3 text-[11px] leading-[1.7] text-(--md-sys-color-on-surface-variant)">
@@ -191,7 +193,7 @@ export const MaterialPreview = ({ scheme }: MaterialPreviewProps) => {
             style={roleStyle("inverseSurface", "inverseOnSurface")}
           >
             <span className="text-[10px] font-[650] tracking-[1.8px] uppercase">
-              A different perspective
+              Foreground and background
             </span>
             <h3>Inverse surface</h3>
             <p>inverse-on-surface</p>
@@ -210,11 +212,13 @@ export const MaterialPreview = ({ scheme }: MaterialPreviewProps) => {
         <div className="mb-4.75 flex items-end justify-between gap-5.5 max-[1150px]:block [&_>_p]:max-w-60 [&_>_p]:text-right [&_>_p]:text-[11px] [&_>_p]:leading-[1.6] [&_>_p]:text-(--md-sys-color-on-surface-variant) max-[1150px]:[&_>_p]:mt-2 max-[1150px]:[&_>_p]:max-w-none max-[1150px]:[&_>_p]:text-left [&_h2]:text-[22px] [&_h2]:leading-tight [&_h2]:font-medium [&_h2]:tracking-[-0.6px] [&>div>p:first-child]:mb-1.75 [&>div>p:first-child]:text-[9px] [&>div>p:first-child]:tracking-[1.4px] [&>div>p:first-child]:text-(--md-sys-color-on-surface-variant)">
           <div>
             <p className="text-[10px] font-[650] tracking-[1.8px] uppercase">
-              03 / Fixed colors
+              Material / Fixed colors
             </p>
-            <h2 id="fixed-heading">The fixed families.</h2>
+            <h2 id="fixed-heading">Fixed roles</h2>
           </div>
-          <p>Fixed and fixed-dim, resolved by Material.</p>
+          <p>
+            Fixed roles provide stable color relationships across preview modes.
+          </p>
         </div>
         <div className="grid grid-cols-3 gap-2.5 max-[580px]:grid-cols-1 max-[580px]:[&_article]:grid max-[580px]:[&_article]:grid-cols-2 [&_article>div>span]:mx-0 [&_article>div>span]:my-3.75 [&_article>div>span]:text-[28px]">
           {MATERIAL_FIXED_PAIRS.map(([base, onBase, dim, onDim]) => (
@@ -230,11 +234,11 @@ export const MaterialPreview = ({ scheme }: MaterialPreviewProps) => {
         <div className="mb-4.75 flex items-end justify-between gap-5.5 max-[1150px]:block [&_>_p]:max-w-60 [&_>_p]:text-right [&_>_p]:text-[11px] [&_>_p]:leading-[1.6] [&_>_p]:text-(--md-sys-color-on-surface-variant) max-[1150px]:[&_>_p]:mt-2 max-[1150px]:[&_>_p]:max-w-none max-[1150px]:[&_>_p]:text-left [&_h2]:text-[22px] [&_h2]:leading-tight [&_h2]:font-medium [&_h2]:tracking-[-0.6px] [&>div>p:first-child]:mb-1.75 [&>div>p:first-child]:text-[9px] [&>div>p:first-child]:tracking-[1.4px] [&>div>p:first-child]:text-(--md-sys-color-on-surface-variant)">
           <div>
             <p className="text-[10px] font-[650] tracking-[1.8px] uppercase">
-              04 / Token reference
+              Material / Token reference
             </p>
-            <h2 id="inventory-heading">Every supported role.</h2>
+            <h2 id="inventory-heading">All semantic roles</h2>
           </div>
-          <p>Including dim colors and compatibility roles.</p>
+          <p>Complete resolved role reference for the selected scheme.</p>
         </div>
         <div className="grid grid-cols-2 gap-x-6.25 gap-y-0 max-[580px]:grid-cols-1">
           {MATERIAL_COLOR_ROLES.map((role) => {

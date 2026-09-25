@@ -51,11 +51,11 @@ export const MaterialExport = ({ theme }: MaterialExportProps) => {
       <div className="mb-4.75 flex items-end justify-between gap-5.5 max-[1150px]:block [&_>_p]:max-w-60 [&_>_p]:text-right [&_>_p]:text-[11px] [&_>_p]:leading-[1.6] [&_>_p]:text-(--md-sys-color-on-surface-variant) max-[1150px]:[&_>_p]:mt-2 max-[1150px]:[&_>_p]:max-w-none max-[1150px]:[&_>_p]:text-left [&_h2]:text-[22px] [&_h2]:leading-tight [&_h2]:font-medium [&_h2]:tracking-[-0.6px] [&>div>p:first-child]:mb-1.75 [&>div>p:first-child]:text-[9px] [&>div>p:first-child]:tracking-[1.4px] [&>div>p:first-child]:text-(--md-sys-color-on-surface-variant)">
         <div>
           <p className="text-[10px] font-[650] tracking-[1.8px] uppercase">
-            Export / Both modes included
+            Export
           </p>
-          <h2 id="export-heading">Take your colors with you.</h2>
+          <h2 id="export-heading">Export Material theme</h2>
         </div>
-        <p>Generated from the theme. Independent of the preview mode.</p>
+        <p>Every export includes both light and dark colors.</p>
       </div>
       <div
         className="mb-5.5 grid grid-cols-3 gap-2.5 max-[580px]:gap-1.75"
@@ -115,9 +115,7 @@ export const MaterialExport = ({ theme }: MaterialExportProps) => {
         className="mt-3.25 min-h-4.5 text-[11px] text-(--md-sys-color-on-surface-variant)"
         role="status"
       >
-        {feedback?.content === content
-          ? feedback.text
-          : "Both light and dark schemes are included in every export."}
+        {feedback?.content === content ? feedback.text : ""}
       </p>
       <div className="mt-7 rounded-xl border border-(--md-sys-color-outline-variant) p-5.5 [&_code]:text-[11px] [&_code]:wrap-anywhere [&_h3]:mb-2.5 [&_h3]:text-[14px] [&_h3]:font-semibold [&_p]:text-[12px] [&_p]:leading-[1.9] [&_p]:text-(--md-sys-color-on-surface-variant)">
         <h3>Use it in your project</h3>
