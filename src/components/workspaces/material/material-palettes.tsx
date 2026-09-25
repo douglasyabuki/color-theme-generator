@@ -1,12 +1,11 @@
 import { formatArgbHex } from "@/lib/format-argb-hex";
-import { formatMaterialTokenName } from "@/utils/material-css";
-
-import type { MaterialPaletteMap } from "../../../types-and-consts/material-design";
+import type { MaterialPaletteMap } from "@/types-and-consts/material-design";
 import {
   MATERIAL_PALETTE_NAMES,
   MATERIAL_PALETTE_TONES,
-} from "../../../types-and-consts/material-design";
-import type { ThemeMode } from "../../../types-and-consts/theme-mode";
+} from "@/types-and-consts/material-design";
+import type { ThemeMode } from "@/types-and-consts/theme-mode";
+import { formatMaterialTokenName } from "@/utils/material-css";
 
 interface MaterialPalettesProps {
   palettes: MaterialPaletteMap;

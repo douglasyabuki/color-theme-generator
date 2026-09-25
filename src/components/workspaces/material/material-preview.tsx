@@ -1,19 +1,19 @@
 import type { CSSProperties } from "react";
 
 import { formatArgbHex } from "@/lib/format-argb-hex";
+import type { MaterialColorRole } from "@/types-and-consts/material-design";
+import type { MaterialColorScheme } from "@/types-and-consts/material-design";
+import {
+  MATERIAL_ACCENT_PAIRS,
+  MATERIAL_FIXED_PAIRS,
+  MATERIAL_SURFACE_ROLES,
+} from "@/types-and-consts/material-design";
+import { MATERIAL_COLOR_ROLES } from "@/types-and-consts/material-design";
 import {
   formatMaterialTokenName,
   getMaterialRoleVariable,
 } from "@/utils/material-css";
 
-import type { MaterialColorRole } from "../../../types-and-consts/material-design";
-import type { MaterialColorScheme } from "../../../types-and-consts/material-design";
-import {
-  MATERIAL_ACCENT_PAIRS,
-  MATERIAL_FIXED_PAIRS,
-  MATERIAL_SURFACE_ROLES,
-} from "../../../types-and-consts/material-design";
-import { MATERIAL_COLOR_ROLES } from "../../../types-and-consts/material-design";
 import { MaterialComponentShowcase } from "./material-component-showcase";
 
 interface RolePairProps {

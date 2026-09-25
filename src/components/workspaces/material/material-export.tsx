@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import type { MaterialTheme } from "../../../types-and-consts/material-design";
+import type { MaterialTheme } from "@/types-and-consts/material-design";
 import {
   MATERIAL_EXPORTS,
   type MaterialExportFeedback,
   type MaterialExportFormat,
-} from "../../../types-and-consts/material-exports";
+} from "@/types-and-consts/material-exports";
 
 interface MaterialExportProps {
   theme: MaterialTheme;
