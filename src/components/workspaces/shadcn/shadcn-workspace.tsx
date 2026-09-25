@@ -1,6 +1,11 @@
 import { useLayoutEffect, useRef, useState } from "react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/shadcn/tabs";
 import { cn } from "@/lib/utils";
 import type { ShadcnTheme } from "@/types-and-consts/shadcn-theme";
 import type { ShadcnView } from "@/types-and-consts/shadcn-workspace";

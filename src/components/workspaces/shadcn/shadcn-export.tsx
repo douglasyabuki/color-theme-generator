@@ -1,14 +1,17 @@
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+} from "@/components/ui/shadcn/card";
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+} from "@/components/ui/shadcn/toggle-group";
 import {
   SHADCN_EXPORTS,
   type ShadcnExportFeedback,

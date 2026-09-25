@@ -1,7 +1,10 @@
 import { useLayoutEffect, useMemo, useState } from "react";
 
 import { ThemeControls } from "@/components/theme-controls";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+} from "@/components/ui/shadcn/toggle-group";
 import { MaterialWorkspace } from "@/components/workspaces/material/material-workspace";
 import { ShadcnWorkspace } from "@/components/workspaces/shadcn/shadcn-workspace";
 import { DEFAULT_MATERIAL_THEME_OPTIONS } from "@/types-and-consts/material-design";

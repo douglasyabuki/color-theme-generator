@@ -33,7 +33,7 @@ export default defineConfig([
     },
   },
   {
-    files: ["src/components/ui/*.tsx"],
+    files: ["src/components/ui/shadcn/*.tsx"],
     rules: {
       // shadcn shares variant factories and its sidebar hook alongside components.
       "react-refresh/only-export-components": [

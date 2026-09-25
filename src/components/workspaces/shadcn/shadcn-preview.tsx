@@ -1,8 +1,8 @@
 import { ChevronDownIcon, FolderIcon, HomeIcon, PlusIcon } from "lucide-react";
 import { useState } from "react";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/shadcn/badge";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/shadcn/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,15 +19,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/shadcn/dropdown-menu";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+} from "@/components/ui/shadcn/field";
+import { Input } from "@/components/ui/shadcn/input";
+import { Separator } from "@/components/ui/shadcn/separator";
 import {
   Sidebar,
   SidebarContent,
@@ -40,7 +40,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarSeparator,
-} from "@/components/ui/sidebar";
+} from "@/components/ui/shadcn/sidebar";
 
 const weeklyActivity = [
   { day: "Mon", tasks: 18, token: "chart-1" },
