@@ -37,6 +37,10 @@ Chroma exposes:
 - reference palette tokens
 - structured JSON
 
+The **Semantic roles** view starts with an interactive project-settings showcase, followed by the semantic color reference. Buttons, text fields, checkboxes, switches, chips, cards, and tabs demonstrate the generated colors in context. Example edits stay local to the preview.
+
+The **Reference palettes** and **Export** views provide palette inspection and downloadable color tokens.
+
 ### shadcn
 
 The same generated Material theme can be adapted to shadcn's semantic color model.
@@ -232,7 +236,7 @@ Source color
 Material Color Utilities
       │
       ▼
-MaterialColorTheme
+MaterialTheme
       │
       ├── Material preview
       ├── Material CSS
@@ -288,12 +292,33 @@ npm run lint
 
 ```text
 src/
-├── components/          UI and theme previews
-├── components/ui/       shared UI components
+├── components/
+│   ├── ui/
+│   │   ├── shadcn/      project-owned shadcn components
+│   │   └── material/    local Material 3 preview primitives
+│   ├── workspaces/
+│   │   ├── material/    component showcase, semantic roles, palettes and exports
+│   │   └── shadcn/      component preview, token inspection and exports
+│   └── theme-controls.tsx
 ├── lib/                 formatting and utility adapters
-├── types-and-consts/    theme types and token manifests
+├── types-and-consts/     theme types and token manifests
 └── utils/               theme engines, adapters and serializers
 ```
+
+### Component ownership
+
+- `components/ui/shadcn` contains the project's shadcn components. `components.json` sets `aliases.ui` to `@/components/ui/shadcn`, so future CLI additions go into this directory. The project uses the `base-vega` style with Base UI.
+- `components/ui/material` contains Chroma's seven local Material preview primitives. They use native controls and unstyled Base UI tabs, with Tailwind utilities and state variants for styling. They consume `--md-sys-color-*` variables rather than numbered palette tones or shadcn color tokens.
+- `components/workspaces` contains the compositions, preview state, token inspection, and export interfaces for each target. Keep these compositions separate from reusable UI primitives.
+
+Import primitives from their owning directory:
+
+```tsx
+import { MaterialButton } from "@/components/ui/material/button";
+import { Button } from "@/components/ui/shadcn/button";
+```
+
+Material primitives inherit the resolved scheme applied by `applyMaterialScheme`. The shadcn workspace applies its adapted tokens within its own preview container. Both previews use semantic colors; fixed component geometry and typography are presentation defaults and are not included in color exports.
 
 The important separation is:
 
@@ -316,6 +341,8 @@ Chroma is currently focused on **color**.
 It generates and adapts semantic color themes. It does not generate a complete design system.
 
 Typography, spacing, shape, motion, component layout, and other design decisions remain outside the color engine.
+
+The local Material components demonstrate the color system; they are not a complete Material component library. Chroma does not depend on MUI or the `@material/web` runtime.
 
 ## Direction
 

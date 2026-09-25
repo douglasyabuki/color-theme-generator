@@ -14,6 +14,7 @@ import {
   MATERIAL_SURFACE_ROLES,
 } from "../../../types-and-consts/material-design";
 import { MATERIAL_COLOR_ROLES } from "../../../types-and-consts/material-design";
+import { MaterialComponentShowcase } from "./material-component-showcase";
 
 interface RolePairProps {
   background: MaterialColorRole;
@@ -68,6 +69,7 @@ interface MaterialPreviewProps {
 export const MaterialPreview = ({ scheme }: MaterialPreviewProps) => {
   return (
     <div className="pt-6.75 [&_>_section+section]:mt-10">
+      <MaterialComponentShowcase />
       <section aria-labelledby="accent-heading">
         <div className="mb-4.75 flex items-end justify-between gap-5.5 max-[1150px]:block [&_>_p]:max-w-60 [&_>_p]:text-right [&_>_p]:text-[11px] [&_>_p]:leading-[1.6] [&_>_p]:text-(--md-sys-color-on-surface-variant) max-[1150px]:[&_>_p]:mt-2 max-[1150px]:[&_>_p]:max-w-none max-[1150px]:[&_>_p]:text-left [&_h2]:text-[22px] [&_h2]:leading-tight [&_h2]:font-medium [&_h2]:tracking-[-0.6px] [&>div>p:first-child]:mb-1.75 [&>div>p:first-child]:text-[9px] [&>div>p:first-child]:tracking-[1.4px] [&>div>p:first-child]:text-(--md-sys-color-on-surface-variant)">
           <div>
@@ -133,34 +135,7 @@ export const MaterialPreview = ({ scheme }: MaterialPreviewProps) => {
             </div>
           ))}
         </div>
-        <div className="mt-4 grid grid-cols-[1.2fr_1fr_1fr] gap-3 max-[1150px]:grid-cols-2 max-[580px]:grid-cols-1 max-[580px]:gap-3.5">
-          <article className="rounded-xl bg-(--md-sys-color-surface-container-low) p-5.5 max-[580px]:p-6 [&_h3]:text-[19px] [&_h3]:leading-tight [&_h3]:font-medium [&_h3]:tracking-[-0.5px] [&>p:first-of-type]:mb-2.25 [&>p:first-of-type]:text-[8px] [&>p:first-of-type]:tracking-[1px] [&>p:first-of-type]:text-(--md-sys-color-on-surface-variant)">
-            <div
-              className="mb-5 grid h-9.5 w-9.5 place-items-center rounded-xl bg-(--md-sys-color-tertiary-container) text-[24px] text-(--md-sys-color-on-tertiary-container)"
-              aria-hidden="true"
-            >
-              ✳
-            </div>
-            <p className="text-[10px] font-[650] tracking-[1.8px] uppercase">
-              Example component
-            </p>
-            <h3>Room for a new idea.</h3>
-            <p className="mt-3 text-[11px] leading-[1.7] text-(--md-sys-color-on-surface-variant)">
-              Supporting text uses on-surface-variant. Containers give the
-              content its own space.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <span className="inline-flex items-center justify-center gap-3 rounded-3xl bg-(--md-sys-color-primary) px-3.5 py-2.5 text-[10px] font-semibold text-(--md-sys-color-on-primary)">
-                Create something <span aria-hidden="true">↗</span>
-              </span>
-              <span className="inline-flex items-center justify-center gap-3 rounded-3xl border border-(--md-sys-color-outline) px-3.5 py-2.5 text-[10px] font-semibold text-(--md-sys-color-primary)">
-                Keep exploring
-              </span>
-            </div>
-            <p className="mt-4.5 text-[9px] text-(--md-sys-color-on-surface-variant)">
-              Component styling preview
-            </p>
-          </article>
+        <div className="mt-4 grid grid-cols-2 gap-3 max-[1150px]:grid-cols-2 max-[580px]:grid-cols-1 max-[580px]:gap-3.5">
           <article className="rounded-xl border border-(--md-sys-color-outline-variant) p-1.25 max-[580px]:[&_>div:first-child]:p-5">
             <RolePair
               background="surface"
@@ -189,7 +164,7 @@ export const MaterialPreview = ({ scheme }: MaterialPreviewProps) => {
             </div>
           </article>
           <article
-            className="flex flex-col items-start gap-4 rounded-xl px-4.5 py-5.75 max-[1150px]:col-span-full max-[580px]:p-6.25 [&_code]:text-[9px] [&_h3]:mt-3.75 [&_h3]:text-[19px] [&_h3]:leading-tight [&_h3]:font-medium [&_h3]:tracking-[-0.5px] max-[1150px]:[&_h3]:mt-0 [&_p]:text-[10px] [&>span:first-child]:text-[8px] [&>span:first-child]:tracking-[1px]"
+            className="flex flex-col items-start gap-4 rounded-xl px-4.5 py-5.75 max-[580px]:p-6.25 [&_code]:text-[9px] [&_h3]:mt-3.75 [&_h3]:text-[19px] [&_h3]:leading-tight [&_h3]:font-medium [&_h3]:tracking-[-0.5px] max-[1150px]:[&_h3]:mt-0 [&_p]:text-[10px] [&>span:first-child]:text-[8px] [&>span:first-child]:tracking-[1px]"
             style={roleStyle("inverseSurface", "inverseOnSurface")}
           >
             <span className="text-[10px] font-[650] tracking-[1.8px] uppercase">
